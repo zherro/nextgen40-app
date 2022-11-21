@@ -1,0 +1,24 @@
+.container,
+.heading,
+.tagline {
+  color: rgb(54, 54, 54);
+  background-color: #c1dff2;
+}
+
+.container {
+  padding: 0.75rem 0 0 1rem;
+}
+
+.columns > * {
+  padding-bottom: 0;
+}
+
+.heading,
+.tagline {
+  display: inline-block;
+}
+
+.tagline {
+  padding-left: 0.667rem;
+  font-size: 0.85em;
+}
