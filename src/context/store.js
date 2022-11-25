@@ -14,6 +14,7 @@ import {
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage'
+import loginSlice from "./reducer/loginSlice";
 
 const persistConfig = {
   key: 'stain-app',
@@ -25,6 +26,7 @@ const persistConfig = {
 
 export const combinedReducer = combineReducers({
   i18n: i18nReducer,
+  loginReducer: loginSlice
  })
 
 // const preloadedState = {
@@ -39,9 +41,10 @@ const store = configureStore({
   // preloadedState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false,
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
     }),
   // devTools: process.env.NODE_ENV !== 'production',
 })

@@ -38,12 +38,15 @@
       "@/hooks/*": [
         "src/hooks/*"
       ],
-      // "@/actions/*": [
-      //   "src/core/actions/*"
-      // ],
-      // "@/utils/*": [
-      //   "src/util/*"
-      // ],
+      "@/helpers/*": [
+        "src/core/helpers/*"
+      ],
+      "@/actions/*": [
+        "src/core/actions/*"
+      ],
+      "@/core/*": [
+        "src/core/*"
+      ],
       // "@/routes/*": [
       //   "src/routes/*"
       // ],

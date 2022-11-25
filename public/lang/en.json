@@ -1,4 +1,10 @@
 {
   "tagline": "Continuous improvement",
-  "siginTitle": "Sigin"
+  "siginTitle": "Sigin",
+  "rememberMe": "Remember Me",
+  "forgetPassword": "Esqueci minha senha",
+  "loginBtn": "Entrar",
+  "usernameIsRequeired": "Name is required",
+  "passwordIsRequired": "Message is required",
+  "logout": "Logout"
 }
