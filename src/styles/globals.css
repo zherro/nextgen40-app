@@ -70,3 +70,6 @@
 
 @import url(pages/login.module.css);
 
+body {
+  min-height: 100vh !important;
+}

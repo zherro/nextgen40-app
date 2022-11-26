@@ -6,5 +6,7 @@
   "loginBtn": "Entrar",
   "usernameIsRequeired": "Name is required",
   "passwordIsRequired": "Message is required",
-  "logout": "Logout"
+  "logout": "Logout",
+  "closeMenu": "Close Menu",
+  "menu": "Menu"
 }

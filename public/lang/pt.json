@@ -6,5 +6,7 @@
   "loginBtn": "Submit",
   "usernameIsRequeired": "Informe o nome de usuario",
   "passwordIsRequired": "Informe sua senha",
-  "logout": "Sair"
+  "logout": "Sair",
+  "closeMenu": "Sair do menu",
+  "menu": "Menu"
 }
