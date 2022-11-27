@@ -8,5 +8,7 @@
   "passwordIsRequired": "Informe sua senha",
   "logout": "Sair",
   "closeMenu": "Sair do menu",
-  "menu": "Menu"
+  "menu": "Menu",
+  "notice1": "Oh No! Nao ha rotas configuradas para vizualizacao!",
+  "notice2": "Oh No! Nao ha rotas configuradas para vizualizacao! Voce pode configurar uma nova rota no memu 'Configurar Rota > Nova Rota'."
 }

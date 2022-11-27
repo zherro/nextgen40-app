@@ -15,5 +15,32 @@ const logoutUser = () => {
     window.location.reload();
 };
 
+const getUser = () => {
+    let user = localStorage.getItem(STORAGE_KEYS.USER);
+    if(!user || user === undefined || !JSON.parse(user)) {
+        logoutUser();
+        return null;
+    }
+    return JSON.parse(user);
+}
 
-export { handleResponse, loginUser, logoutUser };
+const getUserRoutes = () => {
+    return getUser()?.routes;
+}
+
+const userIsAdmin = () => {
+    return getUser()?.roles.indexOf('ROLE_ADMIN') >= 0;
+}
+
+const authHeader = () => {
+    let user = JSON.parse(localStorage.getItem(STORAGE_KEYS.USER));
+
+    if (user && user.accessToken) {
+        return { 'Authorization': 'Bearer ' + user.accessToken };
+    } else {
+        return {};
+    }
+};
+
+
+export { handleResponse, loginUser, logoutUser, authHeader, getUserRoutes, userIsAdmin };

@@ -1,18 +1,20 @@
 import React from "react";
 import LangSwitcher from '@/components/lang-switcher/LangSwitcher';
-import { IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
+import { useSelector } from 'react-redux';
 import useTranslation from '@/hooks/useTranslations';
 import { logoutAuth } from '@/actions/login.action';
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {  HamburgerIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
 import { ROUTES } from "../../core/config/app.environment";
 import DrawMenu from "./components/draw-menu";
+import ContentLoader from "./components/content-loader";
 
 const DefaultLayout = (page) => {
     const router = useRouter();
     const { t } = useTranslation();
+    const { loadingContent, contentLoadError } = useSelector(state => state.contentReducer)
 
-    const [size, setSize] = React.useState('')
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const logout = () => {
@@ -39,26 +41,27 @@ const DefaultLayout = (page) => {
                     </div>
                 </div>
             </nav>
-            <div style={{ paddingTop: 70 }}>
-                <div className="container">
-                    {page}
+            <div style={{ paddingTop: 70, minHeight: '100vh' }}>
+                <div className="container" style={{minHeight: '100%'}}>
+                   { loadingContent &&  <ContentLoader /> }
+                   { !loadingContent && page }                   
                 </div>
             </div>
 
             {
                 isOpen &&
-                    <div className="position-absolute text-center" style={{bottom: 16, left: 0, right: 0, zIndex: 2000}}>
-                        <button onClick={() => onClose()} type="text" className="btn btn-outline-dark w-100" style={{maxWidth: 300}}>
-                            { t.closeMenu }
-                        </button>
-                    </div>
+                <div className="position-absolute text-center" style={{ bottom: 16, left: 0, right: 0, zIndex: 2000 }}>
+                    <button onClick={() => onClose()} type="text" className="btn btn-outline-dark w-100" style={{ maxWidth: 300 }}>
+                        {t.closeMenu}
+                    </button>
+                </div>
             }
 
             <DrawMenu
                 type="GRID"
-                title={ t.menu }
+                title={t.menu}
                 isOpen={isOpen}
-                onClose={onClose} 
+                onClose={onClose}
                 size="full"
                 logout={logout}
             />

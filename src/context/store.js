@@ -15,18 +15,22 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage'
 import loginSlice from "./reducer/loginSlice";
+import contentLoadSlice from './reducer/contentLoadSlice';
+import routesSlice from './reducer/routesSlice';
 
 const persistConfig = {
   key: 'stain-app',
   storage,
-  stateReconciler: autoMergeLevel2
+  stateReconciler: autoMergeLevel2,
   // whitelist: ['AppReducer',],
-  // blacklist: [''],
+  blacklist: ['contentReducer'],
 };
 
 export const combinedReducer = combineReducers({
   i18n: i18nReducer,
-  loginReducer: loginSlice
+  loginReducer: loginSlice,
+  routesReducer: routesSlice,
+  contentReducer: contentLoadSlice,
  })
 
 // const preloadedState = {
