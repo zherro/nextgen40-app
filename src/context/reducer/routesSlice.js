@@ -14,12 +14,14 @@ export const routesSlice = createSlice({
         },
         routesSuccess: (state, action) => {
             state.loadingRoutes = false;
+            state.routesError = undefined;
             state.myRoutes = action.payload;
         },
         routesFailure: (state, action) => {
             state.loadingRoutes = false;
             state.routesError = action.payload;
-        }
+            state.myRoutes = undefined;
+        },
     }
 });
 

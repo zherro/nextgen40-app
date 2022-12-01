@@ -17,13 +17,15 @@ import storage from 'redux-persist/lib/storage'
 import loginSlice from "./reducer/loginSlice";
 import contentLoadSlice from './reducer/contentLoadSlice';
 import routesSlice from './reducer/routesSlice';
+import crudSlice from './reducer/crudSlice';
+import toastSlice from './reducer/toastSlice';
 
 const persistConfig = {
   key: 'stain-app',
   storage,
   stateReconciler: autoMergeLevel2,
   // whitelist: ['AppReducer',],
-  blacklist: ['contentReducer'],
+  blacklist: ['contentReducer', 'crudReducer', 'toastReducer'],
 };
 
 export const combinedReducer = combineReducers({
@@ -31,6 +33,8 @@ export const combinedReducer = combineReducers({
   loginReducer: loginSlice,
   routesReducer: routesSlice,
   contentReducer: contentLoadSlice,
+  crudReducer: crudSlice,
+  toastReducer: toastSlice,
  })
 
 // const preloadedState = {

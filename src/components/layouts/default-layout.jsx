@@ -1,26 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LangSwitcher from '@/components/lang-switcher/LangSwitcher';
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSelector } from 'react-redux';
 import useTranslation from '@/hooks/useTranslations';
 import { logoutAuth } from '@/actions/login.action';
-import {  HamburgerIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, SettingsIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
-import { ROUTES } from "../../core/config/app.environment";
 import DrawMenu from "./components/draw-menu";
 import ContentLoader from "./components/content-loader";
+import { ROUTES } from '@/core/config/app.environment';
+import { userHasRole } from "@/helpers/service.helper";
 
 const DefaultLayout = (page) => {
     const router = useRouter();
     const { t } = useTranslation();
-    const { loadingContent, contentLoadError } = useSelector(state => state.contentReducer)
+    const toast = useToast()
+    const { loadingContent, contentLoadError } = useSelector(state => state.contentReducer);
+    const { showToast, messageToast} = useSelector(state => state.toastReducer);
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const logout = () => {
         logoutAuth();
         router.push(ROUTES.LOGIN);
     }
+
+    useEffect(() => {
+        if(showToast) {
+            toast({
+                title: messageToast.msg,
+                status: messageToast.status,
+                isClosable: true,
+            })
+        }
+    }, [showToast])
 
     return (
         <>
@@ -41,11 +54,11 @@ const DefaultLayout = (page) => {
                     </div>
                 </div>
             </nav>
-            <div style={{ paddingTop: 70, minHeight: '100vh' }}>
-                <div className="container" style={{minHeight: '100%'}}>
-                   { loadingContent &&  <ContentLoader /> }
-                   { !loadingContent && page }                   
+            <div style={{ paddingTop: 70, minHeight: '100vh'}}>
+                <div className="container" style={{minHeight: '90hv'}}>
+                   { page }                  
                 </div>
+                {  loadingContent && <ContentLoader /> }
             </div>
 
             {
@@ -64,6 +77,21 @@ const DefaultLayout = (page) => {
                 onClose={onClose}
                 size="full"
                 logout={logout}
+                groups={[
+                    {
+                        groupId: 'configurar',
+                        groupName: 'Configurar',
+                        show: userHasRole('CONFIG'),
+                        itens: [
+                            {
+                                show: userHasRole('CONFIG_ROTA'),
+                                action: () => router.push(ROUTES.CONFIG_ROTA),
+                                icon: <SettingsIcon />,
+                                name: "Configurar ROTA"
+                            },
+                        ]
+                    },
+                ]}
             />
         </>
     );

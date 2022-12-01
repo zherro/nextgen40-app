@@ -14,7 +14,6 @@ export default async function handler(req, res) {
             readResponse(res, response)
         })
         .catch((error) => {
-            console.log('LENDO ERRO:' + error)
             handleError(res, error)
         });
 }

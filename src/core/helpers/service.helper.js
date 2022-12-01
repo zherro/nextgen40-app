@@ -1,8 +1,17 @@
 
-import { STORAGE_KEYS } from '../config/api.environment';
+import { APP_HOST, STORAGE_KEYS } from '../config/api.environment';
 
 const handleResponse = (response) => {
-    return response.json();
+    console.log(response)
+    if(response?.status == 401) {
+        return {
+            error: true,
+            code: "AUTH_ERROR",
+            message: "Operacao nao autorizada!"
+        };
+    } else {
+        return response.json();
+    }    
 };
 
 const loginUser = (user) => {
@@ -32,6 +41,10 @@ const userIsAdmin = () => {
     return getUser()?.roles.indexOf('ROLE_ADMIN') >= 0;
 }
 
+const userHasRole = (role) => {
+    return getUser()?.roles.indexOf(role) >= 0;
+}
+
 const authHeader = () => {
     let user = JSON.parse(localStorage.getItem(STORAGE_KEYS.USER));
 
@@ -43,4 +56,27 @@ const authHeader = () => {
 };
 
 
-export { handleResponse, loginUser, logoutUser, authHeader, getUserRoutes, userIsAdmin };
+
+const fetchPost = (route, values) => {
+
+    let token = authHeader();
+    
+    let requestOptions = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            ...token
+        },
+        body: JSON.stringify(values)
+    };
+    console.log('aaa')
+    return fetch(`${APP_HOST}${route}`, requestOptions)
+        .then(handleResponse);
+}
+
+
+export {
+    handleResponse, loginUser, logoutUser,
+    authHeader, getUserRoutes, userIsAdmin,
+    userHasRole, fetchPost
+};

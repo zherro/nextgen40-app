@@ -14,7 +14,7 @@
 
 
 :root {
-  --background: #fafafa;
+  --background: #f2f6f9;
   --background-secondary: #533483;
 
   --white: #fafafa;
@@ -29,6 +29,25 @@
   --primary-light: theme("colors.gray.500");
 
 }
+
+[data-theme="light"] {
+  --chakra-colors-chakra-body-bg: #f2f6f9;
+  --background: #f2f6f9;
+  --background-secondary: #533483;
+
+  --white: #fafafa;
+  --white-medium: #f9f9f9;
+
+  --primary: #E94560;
+  --primary-light: #f87288;
+
+  --primary-dark: #16213E;
+  --primary-dark-light: #b1b1b1;
+  --primary-medium: #363636;
+  --primary-light: theme("colors.gray.500");
+
+}
+
 
 [data-theme="dark"] {
   --background: theme("colors.black");
@@ -71,8 +90,11 @@
 @import url(pages/login.module.css);
 
 @import url(components/content-loader.module.css);
+@import url(components/responsiveTable.module.css);
 
 
 body {
   min-height: 100vh !important;
+  background-color: #f2f6f9;
+  color: #141a4e;
 }

@@ -24,16 +24,22 @@ import useTranslation from '@/hooks/useTranslations';
 
     [
         {
-            action: () => {},
-            icon: <SameIconConponent />,
-            name: "Menu Item Name"
-        }
+            groupId: id,
+            groupName: 'name'
+            itens: [
+                {
+                    action: () => {},
+                    icon: <SameIconConponent />,
+                    name: "Menu Item Name"
+                },
+            ]
+        },
     ]
  * 
  * 
  */
 
-const DrawMenu = ({ onClose, isOpen, size, title, type, itens, logout }) => {
+const DrawMenu = ({ onClose, isOpen, size, title, type, groups, logout }) => {
 
     const { t } = useTranslation();
 
@@ -42,19 +48,31 @@ const DrawMenu = ({ onClose, isOpen, size, title, type, itens, logout }) => {
             <>
                 <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: 400 }}>
                     {
-                        itens?.map(item => {
-                            return (
-                                <>
-                                    <div onClick={item?.action}>
-                                        <div>{item?.icon}</div>
-                                        <div>{item?.name}</div>
-                                    </div>
-                                </>
-                            );
+                        groups?.map(item => {
+                            return item.show &&
+                                (
+                                    <>
+                                        <div key={item.groupId} className="row">
+                                            <div className="col-12 p-0 mb-2" style={{ borderBottom: 'solid 1px #999' }}>
+                                                <p className="text-secondary" style={{ width: '100%' }}>
+                                                    {item.groupName}
+                                                </p>
+                                            </div>
+                                            {item.itens.map((i, idx) => {
+                                                return i.show &&
+                                                    <div key={idx} className="col-12 p-0 mb-2 py-2" style={{ cursor: 'pointer', borderBottom: 'solid 1px #CCC' }}>
+                                                        <div onClick={() => i.action()} >
+                                                            {i.name}
+                                                        </div>
+                                                    </div>
+                                            })}
+                                        </div>
+                                    </>
+                                );
                         })
                     }
                 </div>
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center mt-5">
                     <button onClick={() => logout()} type="text" className="btn btn-outline-danger" style={{ width: 150 }}>
                         {t.logout}
                     </button>
@@ -69,7 +87,11 @@ const DrawMenu = ({ onClose, isOpen, size, title, type, itens, logout }) => {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>{title}</DrawerHeader>
+                    <DrawerHeader>
+                        <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: 400 }}>
+                            {title}
+                        </div>
+                    </DrawerHeader>
                     <DrawerBody>
                         {type == "GRID" && <GridMenu />}
                     </DrawerBody>
