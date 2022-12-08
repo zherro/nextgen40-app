@@ -1,6 +1,7 @@
 
 export const STORAGE_KEYS = {
   USER: "nextgen4.user",
+  LOGOUT: "nextgen4.logout",
 }
 
 export const APP_HOST =  "http://localhost:3001";
@@ -13,6 +14,7 @@ export const API_PATHS = {
   },
   ROUTES: {
     GET_MY_ROUTES: "/api/rota/rotas",
-    GRUD_ROUTES: "/api/rota",
+    CRUD_ROUTES: "/api/rota",
+    CRUD_ROUTES_GET_BY_ID: "/api/rota/",
   }
 }

@@ -1,3 +1,5 @@
+import { logoutRequest } from "src/context/reducer/loginSlice";
+import { STORAGE_KEYS } from '../config/api.environment';
 
 const actionFetch = (fetch, dispatch, request, success, failure, requestContent, finishLoad) => {
     dispatch(requestContent());
@@ -5,22 +7,32 @@ const actionFetch = (fetch, dispatch, request, success, failure, requestContent,
 
     return fetch()
         .then(response => {
+            console.log(response)
             if (response.error || response.errors) {
                 dispatch(failure(response));
+                if(response?.error && response?.code == 'AUTH_ERROR') {
+                    dispatch(logoutRequest());
+                    localStorage.setItem(STORAGE_KEYS.LOGOUT, true);
+                }
             } else if (!response.error && !response.errors) {
                 dispatch(success(response));
             };
             dispatch(finishLoad());
         })
         .catch(error => {
+            console.log('ERROR ERROR 2');
             console.log(error)
-            if(error?.data == undefined) {
+            if(error == undefined) {
                 dispatch(failure({
                         error: true,
                         code: "REQUEST_TYPE_ERROR",
                         message: "Falha ao se comunicar com servidor!"
                 }));
             } else {
+                if(error?.error && error?.code == 'AUTH_ERROR') {
+                    dispatch(logoutRequest());
+                    localStorage.setItem(STORAGE_KEYS.LOGOUT, true);
+                }
                 dispatch(failure(error.data));
             }
             dispatch(finishLoad());

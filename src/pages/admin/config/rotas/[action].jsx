@@ -26,6 +26,7 @@ const FormRota = () => {
                 ]}
             >
                 <FormBuilder
+                    type="FORM"
                     callbackSuccess={(data) => router.push(ROUTES.CONFIG_ROTA_VIEW + data?.uuid)}
                     dispatch={(values) => dispatch(saveRota(values))}
                     loading={creatingRota}

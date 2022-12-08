@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import LangSwitcher from '@/components/lang-switcher/LangSwitcher';
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useTranslation from '@/hooks/useTranslations';
 import { logoutAuth } from '@/actions/login.action';
 import { HamburgerIcon, SettingsIcon } from "@chakra-ui/icons";
@@ -10,6 +10,7 @@ import DrawMenu from "./components/draw-menu";
 import ContentLoader from "./components/content-loader";
 import { ROUTES } from '@/core/config/app.environment';
 import { userHasRole } from "@/helpers/service.helper";
+import { STORAGE_KEYS } from "@/core/config/api.environment";
 
 const DefaultLayout = (page) => {
     const router = useRouter();
@@ -17,13 +18,21 @@ const DefaultLayout = (page) => {
     const toast = useToast()
     const { loadingContent, contentLoadError } = useSelector(state => state.contentReducer);
     const { showToast, messageToast} = useSelector(state => state.toastReducer);
+    const { loggingIn, logout } = useSelector(state => state.loginReducer);
+    const dispatch = useDispatch();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const logout = () => {
-        logoutAuth();
+    const logoutAction = () => {
+        dispatch(logoutAuth());
         router.push(ROUTES.LOGIN);
     }
+
+    useEffect(() => {
+        if(!loggingIn && logout && localStorage.getItem(STORAGE_KEYS.LOGOUT)) {
+            dispatch(logoutAuth());
+        }
+    }, [logout])
 
     useEffect(() => {
         if(showToast) {
@@ -76,7 +85,7 @@ const DefaultLayout = (page) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 size="full"
-                logout={logout}
+                logout={logoutAction}
                 groups={[
                     {
                         groupId: 'configurar',

@@ -55,28 +55,43 @@ const authHeader = () => {
     }
 };
 
-
-
-const fetchPost = (route, values) => {
-
+const requestOptionsWithBody = (method, data) => {
     let token = authHeader();
     
-    let requestOptions = {
-        method: 'POST',
+    return {
+        method: method,
         headers: {
             "Content-Type": "application/json",
-            ...token
+            ...token,
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify(data)
     };
-    console.log('aaa')
-    return fetch(`${APP_HOST}${route}`, requestOptions)
+}
+
+const requestOptions = (method, data) => {
+    let token = authHeader();
+    
+    return {
+        method: method,
+        headers: {
+            "Content-Type": "application/json",
+            ...token,
+        },
+    };
+}
+
+const fetchPost = (route, data) => {
+    return fetch(`${APP_HOST}${route}`, requestOptionsWithBody('POST', data))
         .then(handleResponse);
 }
 
+const fetchGet = (route) => {
+    return fetch(`${APP_HOST}${route}`, requestOptions('GET', {}))
+        .then(handleResponse);
+}
 
 export {
     handleResponse, loginUser, logoutUser,
     authHeader, getUserRoutes, userIsAdmin,
-    userHasRole, fetchPost
+    userHasRole, fetchPost, fetchGet
 };

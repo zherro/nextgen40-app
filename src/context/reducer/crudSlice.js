@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    creatingRota: false,  
+    creatingRota: false,
+    loadingRota: false,
 };
 
 export const crudSlice = createSlice({
@@ -19,14 +20,27 @@ export const crudSlice = createSlice({
         rotaCreateFailure: (state, action) => {
             state.creatingRota = false;
             state.rotaError = action.payload;
-        }
+        },
+
+        rotaGetRequest: (state, action) => {
+            state.loadingRota = true;
+        },
+        rotaGetSuccess: (state, action) => {
+            state.loadingRota = false;
+            state.rota = action.payload;
+        },
+        rotaGetFailure: (state, action) => {
+            state.loadingRota = false;
+            state.rotaError = action.payload;
+        },
 
         
     }
 });
 
 export const {
-    rotaCreateRequest, rotaCreateSuccess, rotaCreateFailure
+    rotaCreateRequest, rotaCreateSuccess, rotaCreateFailure,
+    rotaGetRequest, rotaGetSuccess, rotaGetFailure,
 } = crudSlice.actions;
 
 

@@ -1,4 +1,7 @@
-import { loginFailure, loginRequest, loginSuccess } from "../../context/reducer/loginSlice";
+import {
+  loginFailure, loginRequest, loginSuccess,
+  logoutSuccess
+} from "../../context/reducer/loginSlice";
 import { loginUserAuth } from "../services/login.service";
 
 const loginAuth = (user) => {
@@ -11,6 +14,7 @@ const loginAuth = (user) => {
         if (user.error || user.errors) {
           dispatch(failure(user));
         } else if (!user.error && !user.errors && user.accessToken) {
+          localStorage.removeItem(STORAGE_KEYS.LOGOUT);
           dispatch(success(user));
         };
       })
@@ -25,7 +29,12 @@ const loginAuth = (user) => {
 };
 
 const logoutAuth = () => {
-  localStorage.clear();
+  return dispatch => {
+    localStorage.clear();
+    dispatch(success())
+  }
+
+  function success(user) { return logoutSuccess(user); };
 }
 
 export { loginAuth, logoutAuth };

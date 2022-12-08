@@ -1,15 +1,13 @@
-import { fetchPost } from '../api.util';
+import { fetchGet } from '../api.util';
 import { HOST_PATH, API_HOST } from '../host.environment';
 
 export default async function handler(req, res) {
-    
-    console.log('ROTA ROUTE')
-    console.log(req)
 
+    const query = req.query;
+    
     switch (req.method) {
-        case 'POST':
-            console.log('ROTA.POST')
-            await fetchPost(`${API_HOST}${HOST_PATH.ROUTES.POST_ROUTES}`, req, res);
+        case 'GET':
+            await fetchGet(`${API_HOST}${HOST_PATH.ROUTES.GET_ROUTE}${query?.uuid}`, req, res);
             break;
     
         default:
