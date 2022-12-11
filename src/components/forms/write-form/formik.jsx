@@ -10,6 +10,8 @@ const FormikBuilder = ({
     initialValues,
     submited,
     setSubmited,
+    editable,
+    data
 }) => {
     const submit = async (values, { setSubmitting, resetForm }) => {
         await fetch(values);
@@ -18,7 +20,7 @@ const FormikBuilder = ({
     return (
         <Formik
             validationSchema={formConfig?.validationSchema}
-            initialValues={formConfig?.initialValues}
+            initialValues={editable ? data : formConfig?.initialValues}
             enableReinitialize
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 submit(values, { setSubmitting, resetForm });

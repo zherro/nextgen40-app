@@ -34,6 +34,19 @@ export const crudSlice = createSlice({
             state.rotaError = action.payload;
         },
 
+
+        rotaListRequest: (state, action) => {
+            state.loadingRotaList = true;
+        },
+        rotaListSuccess: (state, action) => {
+            state.loadingRotaList = false;
+            state.rotas = action.payload;
+        },
+        rotaListFailure: (state, action) => {
+            state.loadingRotaList = false;
+            state.rotaListError = action.payload;
+        },
+
         
     }
 });
@@ -41,6 +54,7 @@ export const crudSlice = createSlice({
 export const {
     rotaCreateRequest, rotaCreateSuccess, rotaCreateFailure,
     rotaGetRequest, rotaGetSuccess, rotaGetFailure,
+    rotaListRequest, rotaListSuccess, rotaListFailure,
 } = crudSlice.actions;
 
 

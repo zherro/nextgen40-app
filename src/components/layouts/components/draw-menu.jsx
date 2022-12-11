@@ -51,23 +51,21 @@ const DrawMenu = ({ onClose, isOpen, size, title, type, groups, logout }) => {
                         groups?.map(item => {
                             return item.show &&
                                 (
-                                    <>
-                                        <div key={item.groupId} className="row">
-                                            <div className="col-12 p-0 mb-2" style={{ borderBottom: 'solid 1px #999' }}>
-                                                <p className="text-secondary" style={{ width: '100%' }}>
-                                                    {item.groupName}
-                                                </p>
-                                            </div>
-                                            {item.itens.map((i, idx) => {
-                                                return i.show &&
-                                                    <div key={idx} className="col-12 p-0 mb-2 py-2" style={{ cursor: 'pointer', borderBottom: 'solid 1px #CCC' }}>
-                                                        <div onClick={() => i.action()} >
-                                                            {i.name}
-                                                        </div>
-                                                    </div>
-                                            })}
+                                    <div key={item.groupId} className="row">
+                                        <div className="col-12 p-0 mb-2" style={{ borderBottom: 'solid 1px #999' }}>
+                                            <p className="text-secondary" style={{ width: '100%' }}>
+                                                {item.groupName}
+                                            </p>
                                         </div>
-                                    </>
+                                        {item.itens.map((i, idx) => {
+                                            return i.show &&
+                                                <div key={idx} className="col-12 p-0 mb-2 py-2" style={{ cursor: 'pointer', borderBottom: 'solid 1px #CCC' }}>
+                                                    <div onClick={() => i.action()} >
+                                                        {i.name}
+                                                    </div>
+                                                </div>
+                                        })}
+                                    </div>
                                 );
                         })
                     }

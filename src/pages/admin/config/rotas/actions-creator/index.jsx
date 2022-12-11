@@ -29,13 +29,13 @@ const dataMap = [
     }
 ];
 
-const formActions = () => {
+const formActions = (router) => {
     return [
         {
             type: 'btn',
             title: 'Cancelar',
             colorScheme: 'red',
-            action: () => {}
+            action: () => {router.push(ROUTES.CONFIG_ROTA)}
         },
         {
             type: 'submit',

@@ -12,6 +12,7 @@ const FormBuilder = ({
     dispatch,
     loading,
     data,
+    editable,
     dataError,
     successMsg,
 
@@ -83,6 +84,8 @@ const FormBuilder = ({
                     fetch={fetchData}
                     submited={submited}
                     setSubmited={setSubmited}
+                    editable={editable}
+                    data={data}
                     formConfig={formConfig}
                 /> 
             }

@@ -9,5 +9,6 @@ export const HOST_PATH = {
         GET_MY_ROUTES: "/api/rotas/my-routes",
         POST_ROUTES: "/api/rotas",
         GET_ROUTE: "/api/rotas/",
+        GET_ROUTES: "/api/rotas",
     }
 }

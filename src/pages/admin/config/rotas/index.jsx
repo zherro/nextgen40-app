@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CrudLayout from "@/components/forms/crud-layout/crudLayout";
 import DefaultLayout from "@/components/layouts/default-layout";
-import ResponsiveTable from "@/components/responsiveTable";
+import ResponsiveTable from "@/components/forms/responsiveTable";
 import { useRouter } from 'next/router';
 import { ROUTES } from "@/core/config/app.environment";
+import { getRotaAll } from "@/actions/routes.action";
+import { useDispatch, useSelector } from "react-redux";
+import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 
 const ConfigRotaPage = () => {
     const router = useRouter();
+    const [load, setLoad] = useState(true);
+
+    const dispatch = useDispatch();
+    const { loadingRotaList, rotas, rotaListError } = useSelector(state => state.crudReducer);
+
+    useEffect(() => {
+        setLoad(false);
+        dispatch(getRotaAll({}))
+    }, [load]);
+
     
     return (
         <>
@@ -26,74 +39,65 @@ const ConfigRotaPage = () => {
             >
             
             <ResponsiveTable
-                data={{
+                data={rotas?.content}
+                config={{
                     head: [
-                        {title: 'Name'},
+                        {title: '#ID'},
+                        {title: 'Nome'},
                         {title: 'Status'},
-                        {title: 'Types'},
-                        {title: 'Last Updated At'},
-                        {title: 'Country'},
+                        {title: 'Criado em', hideWhen: 900},
+                        {title: 'Criado Por'},
+                        {title: 'Acoes'},
                     ],
                     rows: [
-                        [
+                            {
+                                id: 'id',
+                                type: 'text'
+                            },
                             {
                                 id: 'name',
-                                text: 'Developer Zahid',
-                                grid: 12,
-                                gridRow: 2,
+                                type: 'text'
                             },
                             {
                                 id: 'status',
-                                text: 'Active',
-                                grid: 23,
+                                type: 'switch'
                             },
                             {
-                                id: 'types',
-                                text: 'Jul 17, 2021, 01:14 PM',
-                                grid: 23,
+                                id: 'createdAt',
+                                type: 'date-time'
                             },
                             {
-                                id: 'updatedAt',
-                                text: 'Jul 17, 2021, 01:14 PM',
-                                grid: 23,
+                                id: 'createdBy.username',                                
+                                type: 'nickname'
                             },
-                            {
-                                id: 'Country',
-                                text: 'Bangladesh',
-                                grid: '3-1',
-                                gridRow: 2,
+                            {      
+                                id: 'action',                 
+                                type: 'action',
+                                actions: [
+                                    {
+                                        type: 'btn-ghost',
+                                        colorScheme: 'blue',
+                                        icon: <ViewIcon boxSize={4} color='blue' />,
+                                        actionFieldParam: 'uuid',
+                                        action: (uuid) => {router.push(`${ROUTES.CONFIG_ROTA_VIEW}${uuid}`)}
+                                    },
+                                    {
+                                        type: 'btn-ghost',
+                                        colorScheme: 'blue',
+                                        icon: <EditIcon boxSize={4} color='blue' />,
+                                        actionFieldParam: 'uuid',
+                                        action: (uuid) => {router.push(`${ROUTES.CONFIG_ROTA_EDIT}${uuid}`)}
+                                    },
+                                    {
+                                        type: 'btn-ghost',
+                                        colorScheme: 'red',
+                                        icon: <DeleteIcon boxSize={4} color='red' />,
+                                        actionFieldParam: 'uuid',
+                                        action: (uuid) => {router.push(`${ROUTES.CONFIG_ROTA_DELETE}${uuid}`)}
+                                    },
+                                ]
                             },
-                        ],
-                        [
-                            {
-                                id: 'name',
-                                text: 'Developer Zahid',
-                                grid: 12,
-                                gridRow: 2,
-                            },
-                            {
-                                id: 'status',
-                                text: 'Active',
-                                grid: 23,
-                            },
-                            {
-                                id: 'types',
-                                text: 'Jul 17, 2021, 01:14 PM',
-                                grid: 23,
-                            },
-                            {
-                                id: 'updatedAt',
-                                text: 'Jul 17, 2021, 01:14 PM',
-                                grid: 23,
-                            },
-                            {
-                                id: 'Country',
-                                text: 'Bangladesh',
-                                grid: '3-1',
-                                gridRow: 2,
-                            },
-                        ],
-                    ]
+                        ]
                 }}
             />
             </CrudLayout>

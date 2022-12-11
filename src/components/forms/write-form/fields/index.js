@@ -12,7 +12,7 @@ const fieldText = (handleChange, field, values) => {
             <input
                 id={field.id}
                 name={field.id}
-                value={values[field.id]}
+                value={values[field.id] ? values[field.id] : ''}
                 onChange={handleChange}
                 type={field?.type ? field?.type : 'text'}
                 className="form-control"
@@ -29,7 +29,7 @@ const fieldTextArea = (handleChange, field, values) => {
             <textarea
                 id={field.id}
                 name={field.id}
-                value={values[field.id]}
+                value={values[field.id] ? values[field.id] : ''}
                 onChange={handleChange}
                 className="form-control"
                 rows="3"

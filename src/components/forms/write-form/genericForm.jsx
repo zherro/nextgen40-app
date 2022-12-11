@@ -17,7 +17,7 @@ const GenericForm = ({
     feedbackError,
     setFeedbackError,
     submited,
-    setSubmited,
+    setSubmited
 }) => {
 
     const handleBtnSubmit = (e) => {
