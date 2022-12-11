@@ -1,5 +1,6 @@
 import { ROUTES } from '@/core/config/app.environment';
 import * as yup from 'yup';
+import { EditIcon } from '@chakra-ui/icons';
 
 const initialValues = {
     name: '',
@@ -45,7 +46,7 @@ const formActions = (router) => {
     ];
 }
 
-const viewActions = (router) => {
+const viewActions = (router, uuid) => {
         return [
         {
             type: 'btn',
@@ -58,12 +59,28 @@ const viewActions = (router) => {
             title: 'Ver todos',
             colorScheme: 'blue',
             action: () => {router.push(ROUTES.CONFIG_ROTA)}
+        },,
+        {
+            type: 'btn',
+            icon: <EditIcon />,
+            title: 'Editar',
+            colorScheme: 'blue',
+            action: () => {router.push(`${ROUTES.CONFIG_ROTA_EDIT}${uuid}`)}
         },
     ];
 }
 
 const formFields = () => {
     return [
+
+        {
+            id: 'id',
+            type: 'hidden',
+        },
+        {
+            id: 'uuid',
+            type: 'hidden',
+        },
         {
             id: 'name',
             title: 'Nome/Descrição: *',

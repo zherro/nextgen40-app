@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { ROUTES } from "@/core/config/app.environment";
 import FormBuilder from '../../../../components/forms/write-form/index';
 import { useDispatch, useSelector } from "react-redux";
-import { getRotaById, saveRota } from '@/actions/routes.action';
+import { getRotaById, saveRota, updateRota } from '@/actions/routes.action';
 import { formFields, formActions, validationSchema, initialValues } from './actions-creator';
 
 const FormRota = () => {
@@ -14,14 +14,7 @@ const FormRota = () => {
     const [editable, setEditable] = useState(action !== 'new')
 
     const dispatch = useDispatch();
-    const { creatingRota, loadingRota, rota, rotaError } = useSelector(state => state.crudReducer);
-
-    useEffect(() => {
-        console.log(action);
-        if(action != undefined && editable && !loadingRota) {
-            dispatch(getRotaById(action));
-        }
-    }, [editable, action])
+    const { creatingRota, rota, rotaError } = useSelector(state => state.crudReducer);
 
     return (
         <>
@@ -35,11 +28,14 @@ const FormRota = () => {
             >
                 <FormBuilder
                     type="FORM"
+                    // callbackSuccess={(data) => router.push(ROUTES.CONFIG_ROTA_VIEW + data?.uuid)}
                     callbackSuccess={(data) => router.push(ROUTES.CONFIG_ROTA_VIEW + data?.uuid)}
-                    dispatch={(values) => dispatch(saveRota(values))}
+                    dispatch={(values) => editable ? dispatch(updateRota(action, values)) : dispatch(saveRota(values))}
+                    dispatchRetrieveData={(id) => dispatch(getRotaById(id))}
                     loading={creatingRota}
                     data={rota && rota !== undefined && rota !== null ? rota : {}}
                     editable={editable}
+                    editId={action}
                     dataError={rotaError}
                     formConfig={{
                         fields: formFields(),

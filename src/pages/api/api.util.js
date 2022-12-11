@@ -30,7 +30,8 @@ const handleError = (res, error) => {
         console.log('error.response.status')
         console.log(error.response.status)
         res.status(error.response.status).json({
-            error: error?.response?.data?.code,
+            error: true,
+            code: error?.response?.data?.code,
             message: error?.response?.data?.detail,
         });
     } else if (error.request) {
@@ -104,8 +105,14 @@ const fetchPost = async (route, req, res ) => {
     await handleResponse(request, res);
 }
 
+const fetchUpdate = async (route, req, res ) => {
+    let request = axios.put(`${route}`, req.body, axiosConfigAuth({"Authorization" : req.headers['authorization']}));
+    await handleResponse(request, res);
+}
+
 export {
     axiosConfig, axiosConfigAuth, handleError,
     readResponse, invalidOperationResponse,
-    validatePost, validateGet, fetchGet, fetchPost
+    validatePost, validateGet,
+    fetchGet, fetchPost, fetchUpdate
 };

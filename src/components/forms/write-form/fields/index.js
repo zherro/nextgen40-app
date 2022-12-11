@@ -1,5 +1,3 @@
-import { FormLabel, Switch } from "@chakra-ui/react"
-
 const errorField = (msg) => {
     console.log(msg)
     return <div className="text-danger small">{msg}</div>
@@ -40,7 +38,7 @@ const fieldTextArea = (handleChange, field, values) => {
 
 const fieldSwitch = (field, values, setFieldValue) => {
 
-    
+
     const select = (value) => {
         setFieldValue(field.id, value)
     }
@@ -49,21 +47,31 @@ const fieldSwitch = (field, values, setFieldValue) => {
         <>
             <div className="btn-group" role="group" >
                 {
-                    field?.options?.map((opt, idx) => 
+                    field?.options?.map((opt, idx) =>
                         <button
                             id={field.id}
                             name={field.id}
                             key={idx}
                             onClick={() => select(opt.value)}
                             type="button"
-                            className={`btn btn-${opt.value !== values[field.id]  ? 'outline-' : ''}${opt?.type ? opt.type : 'primary'}`}
+                            className={`btn btn-${opt.value !== values[field.id] ? 'outline-' : ''}${opt?.type ? opt.type : 'primary'}`}
                         >
-                            { opt.title }
+                            {opt.title}
                         </button>)
                 }
             </div>
         </>
     )
+}
+
+const fieldHidden = (handleChange, field, values) => {
+    return <input
+                id={field.id}
+                name={field.id}
+                value={values[field.id] ? values[field.id] : ''}
+                onChange={handleChange}
+                type="hidden"
+            />
 }
 
 const getField = (setFieldValue, handleChange, submitted, errors, values, field, idx) => {
@@ -72,7 +80,9 @@ const getField = (setFieldValue, handleChange, submitted, errors, values, field,
             case 'textarea':
                 return fieldTextArea(handleChange, field, values);
             case 'switch':
-                return fieldSwitch(field, values, setFieldValue)
+                return fieldSwitch(field, values, setFieldValue);
+            case 'hidden':
+                return fieldHidden(handleChange, field, values);
             default:
                 return fieldText(handleChange, field, values);
         }

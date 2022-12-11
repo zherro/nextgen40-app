@@ -4,9 +4,9 @@ import { Button, WrapItem } from '@chakra-ui/react';
 const getBtnAction = (handleBtnSubmit, action, idx, values) => {
 
     const runAction = () => {
-        if(action?.actionFieldParam !== undefined 
+        if (action?.actionFieldParam !== undefined
             && action?.actionFieldParam !== null
-            && (''+action?.actionFieldParam).length > 0
+            && ('' + action?.actionFieldParam).length > 0
             && values) {
 
             action?.action(values[action?.actionFieldParam]);
@@ -26,20 +26,22 @@ const getBtnAction = (handleBtnSubmit, action, idx, values) => {
                         colorScheme={action?.colorScheme}
                         variant={action?.variant ? action.variant : 'solid'}
                     >
-                        {action?.icon}
+                        <span style={{marginRight: '0.5em'}}>
+                            {action?.icon}
+                        </span>
                         {action?.title}
                     </Button>
                 </WrapItem>
             }
             {
                 action?.type == 'btn-ghost' &&
-                    <div
-                        style={{cursor: 'pointer' , paddingLeft: '1em', paddingRight: '1em', height: '100%'}}
-                        onClick={() => runAction()}
-                    >
-                        {action?.icon}
-                        {action?.title}
-                    </div>
+                <div
+                    style={{ cursor: 'pointer', paddingLeft: '1em', paddingRight: '1em', height: '100%' }}
+                    onClick={() => runAction()}
+                >
+                    {action?.icon}
+                    {action?.title}
+                </div>
             }
         </span>
     );

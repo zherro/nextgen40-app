@@ -1,5 +1,6 @@
 import { logoutRequest } from "src/context/reducer/loginSlice";
 import { STORAGE_KEYS } from '../config/api.environment';
+import { isValidJson } from './json.helper.js';
 
 const actionFetch = (fetch, dispatch, request, success, failure, requestContent, finishLoad) => {
     dispatch(requestContent());
@@ -9,6 +10,7 @@ const actionFetch = (fetch, dispatch, request, success, failure, requestContent,
         .then(response => {
             console.log(response)
             if (response.error || response.errors) {
+                console.log('ERROR ERROR 1');
                 dispatch(failure(response));
                 if(response?.error && response?.code == 'AUTH_ERROR') {
                     dispatch(logoutRequest());
@@ -22,7 +24,7 @@ const actionFetch = (fetch, dispatch, request, success, failure, requestContent,
         .catch(error => {
             console.log('ERROR ERROR 2');
             console.log(error)
-            if(error == undefined) {
+            if(error == undefined || !isValidJson(error)) {
                 dispatch(failure({
                         error: true,
                         code: "REQUEST_TYPE_ERROR",

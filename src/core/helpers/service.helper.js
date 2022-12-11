@@ -85,6 +85,11 @@ const fetchPost = (route, data) => {
         .then(handleResponse);
 }
 
+const fetchUpdate = (route, data) => {
+    return fetch(`${APP_HOST}${route}`, requestOptionsWithBody('PUT', data))
+        .then(handleResponse);
+}
+
 const fetchGet = (route) => {
     return fetch(`${APP_HOST}${route}`, requestOptions('GET', {}))
         .then(handleResponse);
@@ -93,5 +98,5 @@ const fetchGet = (route) => {
 export {
     handleResponse, loginUser, logoutUser,
     authHeader, getUserRoutes, userIsAdmin,
-    userHasRole, fetchPost, fetchGet
+    userHasRole, fetchPost, fetchGet, fetchUpdate
 };

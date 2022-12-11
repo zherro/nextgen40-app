@@ -6,7 +6,7 @@ import {
 } from "../../context/reducer/crudSlice";
 import { routesFailure, routesRequest, routesSuccess } from "../../context/reducer/routesSlice";
 import { actionFetch } from "../helpers/action.helper";
-import { fetchPost, fetchGet } from "../helpers/service.helper";
+import { fetchPost, fetchGet, fetchUpdate } from "../helpers/service.helper";
 import { fetchMyRoutes } from "../services/routes.service";
 import { API_PATHS } from '../config/api.environment';
 
@@ -38,6 +38,21 @@ const saveRota = (values) => {
   }
 }
 
+const updateRota = (uuid, values) => {
+  console.log('enviando update')
+
+  return dispatch => {
+    function request() { return rotaCreateRequest(); };
+    function success(routes) { return rotaCreateSuccess(routes); };
+    function failure(error) { return rotaCreateFailure(error); };
+
+    function requestContent() { return contentLoadRequest(); };
+    function finishLoad(routes) { return contentLoadFinish(routes); };
+
+    actionFetch(() => fetchUpdate(`${API_PATHS.ROUTES.CRUD_ROUTES_UPDATE}${uuid}`, values), dispatch, request, success, failure, requestContent, finishLoad)
+  }
+}
+
 const getRotaById = (uuid) => {
 
   return dispatch => {
@@ -51,7 +66,6 @@ const getRotaById = (uuid) => {
     actionFetch(() => fetchGet(`${API_PATHS.ROUTES.CRUD_ROUTES_GET_BY_ID}${uuid}`), dispatch, request, success, failure, requestContent, finishLoad)
   }
 }
-
 
 const getRotaAll = (params) => {
 
@@ -68,4 +82,4 @@ const getRotaAll = (params) => {
 }
 
 
-export { retrieveMyRoutes, saveRota, getRotaById, getRotaAll};
+export { retrieveMyRoutes, saveRota, getRotaById, getRotaAll, updateRota};

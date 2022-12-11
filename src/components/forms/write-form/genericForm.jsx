@@ -21,7 +21,6 @@ const GenericForm = ({
 }) => {
 
     const handleBtnSubmit = (e) => {
-        console.log('summiiiiit')
         // e.preventDefault();
         setSubmited(true);
         submitForm();

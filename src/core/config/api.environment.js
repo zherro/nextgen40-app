@@ -15,6 +15,8 @@ export const API_PATHS = {
   ROUTES: {
     GET_MY_ROUTES: "/api/rota/rotas",
     CRUD_ROUTES: "/api/rota",
+    CRUD_ROUTES_UPDATE: "/api/rota/",
+    CRUD_ROUTES_DELETE: "/api/rota/",
     CRUD_ROUTES_GET_BY_ID: "/api/rota/",
   }
 }

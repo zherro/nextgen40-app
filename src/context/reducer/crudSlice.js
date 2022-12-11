@@ -16,9 +16,11 @@ export const crudSlice = createSlice({
         rotaCreateSuccess: (state, action) => {
             state.creatingRota = false;
             state.rota = action.payload;
+            state.rotaError = null;
         },
         rotaCreateFailure: (state, action) => {
             state.creatingRota = false;
+            state.rota = null;
             state.rotaError = action.payload;
         },
 
@@ -28,9 +30,11 @@ export const crudSlice = createSlice({
         rotaGetSuccess: (state, action) => {
             state.loadingRota = false;
             state.rota = action.payload;
+            state.rotaError = null;
         },
         rotaGetFailure: (state, action) => {
             state.loadingRota = false;
+            state.rota = null;
             state.rotaError = action.payload;
         },
 
@@ -41,6 +45,7 @@ export const crudSlice = createSlice({
         rotaListSuccess: (state, action) => {
             state.loadingRotaList = false;
             state.rotas = action.payload;
+            state.rotaListError = {};
         },
         rotaListFailure: (state, action) => {
             state.loadingRotaList = false;

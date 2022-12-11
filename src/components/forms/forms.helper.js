@@ -73,9 +73,9 @@ const buildSimpleTable = (table, values) => {
                         {
                             table?.fields?.map((rows, idx) => {
                                 return (
-                                    <tr>
-                                        {rows?.map((column, idx) => {
-                                            return <td key={idx}> {getFieldValue(column, values)} </td>
+                                    <tr key={idx}>
+                                        {rows?.map((column, idxc) => {
+                                            return <td key={idxc}> {getFieldValue(column, values)} </td>
                                         })}
                                     </tr>
                                 )

@@ -10,9 +10,11 @@ const FormBuilder = ({
     formConfig,
 
     dispatch,
+    dispatchRetrieveData,
     loading,
     data,
     editable,
+    editId,
     dataError,
     successMsg,
 
@@ -26,10 +28,18 @@ const FormBuilder = ({
     const dispatchForm = useDispatch();
 
     useEffect(() => {
+        if(editId != undefined && editable && !loading) {
+            dispatchRetrieveData(editId);
+        }
+    }, [editable, editId])
+
+
+    useEffect(() => {
         
         if (submited && !loading) {
+            setSubmited(false);
 
-            if (!loading && data !== undefined && data !== null) {
+            if (!dataError && !loading && data !== undefined && data !== null) {
                 setFeedbackError({});
 
                 if (type === 'FORM' && callbackSuccess !== undefined) {
@@ -41,10 +51,9 @@ const FormBuilder = ({
                         }))
                     }
                 } else if (type === 'VIEW') {
-                    setVizualizeForm(true)
+                    setVizualizeForm(true);
                 }
             } else if (dataError) {
-                console.log(dataError)
                 if (callbackError !== undefined) {
                     callbackError(dataError);
                 }
