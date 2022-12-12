@@ -5,21 +5,14 @@ import { useRouter } from 'next/router';
 import { ROUTES } from "@/core/config/app.environment";
 import { getRotaAll } from "@/actions/routes.action";
 import { useDispatch, useSelector } from "react-redux";
-import { crudTableMap } from "./actions-creator";
+import { crudTableFilter, crudTableMap } from "./actions-creator";
 import FormBuilder from '@/components/forms/write-form';
 
 const ConfigRotaPage = () => {
     const router = useRouter();
-    const [load, setLoad] = useState(true);
 
     const dispatch = useDispatch();
     const { loadingRotaList, rotas, rotaListError } = useSelector(state => state.crudReducer);
-
-    useEffect(() => {
-        setLoad(false);
-        dispatch(getRotaAll({}))
-    }, [load]);
-
 
     return (
         <>
@@ -39,6 +32,7 @@ const ConfigRotaPage = () => {
             >
                 <FormBuilder
                     type="RESPONSIVE_TABLE"
+                    tableFilter={crudTableFilter}
                     tableMap={{
                         head: [
                             { title: '#ID' },
@@ -50,7 +44,8 @@ const ConfigRotaPage = () => {
                         ],
                         rows: crudTableMap(router, dispatch)
                     }}
-                    data={rotas?.content}
+                    dispatch={(params) => dispatch(getRotaAll(params))}
+                    data={rotas}
                     loading={loadingRotaList}
                     dataError={rotaListError}
                 />

@@ -5,7 +5,7 @@ import {
   rotaListRequest, rotaListSuccess, rotaListFailure,
 } from "../../context/reducer/crudSlice";
 import { routesFailure, routesRequest, routesSuccess } from "../../context/reducer/routesSlice";
-import { actionFetch } from "../helpers/action.helper";
+import { actionFetch, serializeToQuery } from "../helpers/action.helper";
 import { fetchPost, fetchGet, fetchUpdate, fetchDelete } from "../helpers/service.helper";
 import { fetchMyRoutes } from "../services/routes.service";
 import { API_PATHS } from '../config/api.environment';
@@ -81,6 +81,8 @@ const getRotaById = (uuid) => {
 }
 
 const getRotaAll = (params) => {
+  console.log('params')
+  console.log(params)
 
   return dispatch => {
     function request() { return rotaListRequest(); };
@@ -90,7 +92,7 @@ const getRotaAll = (params) => {
     function requestContent() { return contentLoadRequest(); };
     function finishLoad(routes) { return contentLoadFinish(routes); };
 
-    actionFetch(() => fetchGet(`${API_PATHS.ROUTES.CRUD_ROUTES}`), dispatch, request, success, failure, requestContent, finishLoad)
+    actionFetch(() => fetchGet(`${API_PATHS.ROUTES.CRUD_ROUTES}${serializeToQuery(params)}`), dispatch, request, success, failure, requestContent, finishLoad)
   }
 }
 

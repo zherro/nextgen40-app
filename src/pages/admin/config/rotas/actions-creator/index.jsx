@@ -154,6 +154,10 @@ const formFields = () => {
     ];
 }
 
+const crudTableFilter = {
+    size: 1,
+}
+
 const crudTableMap = (router, dispatch) => {
     return [
         {
@@ -243,4 +247,13 @@ const crudTableMap = (router, dispatch) => {
     ]
 };
 
-export { formFields, formActions, viewActions, validationSchema, initialValues, dataMap, crudTableMap }
+export {
+    formFields,
+    formActions,
+    viewActions,
+    validationSchema,
+    initialValues,
+    dataMap,
+    crudTableMap,
+    crudTableFilter
+}

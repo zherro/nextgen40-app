@@ -12,7 +12,7 @@ const actionFetch = (fetch, dispatch, request, success, failure, requestContent,
             if (response.error || response.errors) {
                 console.log('ERROR ERROR 1');
                 dispatch(failure(response));
-                if(response?.error && response?.code == 'AUTH_ERROR') {
+                if (response?.error && response?.code == 'AUTH_ERROR') {
                     dispatch(logoutRequest());
                     localStorage.setItem(STORAGE_KEYS.LOGOUT, true);
                 }
@@ -24,14 +24,14 @@ const actionFetch = (fetch, dispatch, request, success, failure, requestContent,
         .catch(error => {
             console.log('ERROR ERROR 2');
             console.log(error)
-            if(error == undefined || !isValidJson(error)) {
+            if (error == undefined || !isValidJson(error)) {
                 dispatch(failure({
-                        error: true,
-                        code: "REQUEST_TYPE_ERROR",
-                        message: "Falha ao se comunicar com servidor!"
+                    error: true,
+                    code: "REQUEST_TYPE_ERROR",
+                    message: "Falha ao se comunicar com servidor!"
                 }));
             } else {
-                if(error?.error && error?.code == 'AUTH_ERROR') {
+                if (error?.error && error?.code == 'AUTH_ERROR') {
                     dispatch(logoutRequest());
                     localStorage.setItem(STORAGE_KEYS.LOGOUT, true);
                 }
@@ -41,4 +41,21 @@ const actionFetch = (fetch, dispatch, request, success, failure, requestContent,
         });
 };
 
-export { actionFetch };
+const serializeToQuery = (obj) => {
+
+    if (!obj || obj == null || obj == undefined) {
+        return '';
+    }
+
+    var str = [];
+    for (var p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return "?" + str.join("&");
+}
+
+export {
+    actionFetch,
+    serializeToQuery
+};

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormikBuilder from './formik';
 import { pushToast } from '@/core/actions/toast.action';
@@ -11,6 +11,7 @@ const FormBuilder = ({
     type,
     dataMap,
     tableMap,
+    tableFilter,
     formConfig,
 
     dispatch,
@@ -31,6 +32,7 @@ const FormBuilder = ({
     const [ vizualizeForm, setVizualizeForm ] = useState(false);
     const [ modalConfig, setModalConfig ] = useState({});
     const [ modalData, setModalData ] = useState({});
+    const [ params, setParams ] = useState({});
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatchForm = useDispatch();
 
@@ -77,7 +79,21 @@ const FormBuilder = ({
         if(type === 'VIEW' && !vizualizeForm && !loading ) {
             fetchDataToView();
         }
+        if(type == 'RESPONSIVE_TABLE') {
+            fetchDataToTable();
+        }
     }, [])
+
+    const fetchDataToTable = async () => {
+        dispatch(buildParams(0));
+    }
+
+    const buildParams = (page) => {
+        return {
+            size: (tableFilter && tableFilter?.size ? tableFilter?.size : 20),
+            page: page,
+        }
+    }
 
     const fetchDataToView = () => {
         console.log('teste 1111')
@@ -90,6 +106,10 @@ const FormBuilder = ({
         if (submited) {
             dispatch(values);
         }
+    }
+
+    const navigateToPage = async (page) => {
+        dispatch(buildParams(page));
     }
 
     return (
@@ -137,6 +157,7 @@ const FormBuilder = ({
                     <ResponsiveTable
                         data={data}
                         config={tableMap}
+                        filter={tableFilter}
                         setFeedbackError={setFeedbackError}
                         setModalData={setModalData}
 
@@ -144,6 +165,8 @@ const FormBuilder = ({
                         isOpen={isOpen}
                         onOpen={onOpen}
                         onClose={onClose}
+
+                        navigateToPage={(page) => navigateToPage(page)}
                     />
                 )                
             }

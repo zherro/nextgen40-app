@@ -124,10 +124,24 @@ const fetchDelete = async (route, req, res ) => {
     await handleResponse(request, res);
 }
 
+const serializeToQuery = (obj) => {
+
+    if (!obj || obj == null || obj == undefined) {
+        return '';
+    }
+
+    var str = [];
+    for (var p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return "?" + str.join("&");
+}
+
 export {
     axiosConfig, axiosConfigAuth, handleError,
     readResponse, invalidOperationResponse,
     validatePost, validateGet,
     fetchGet, fetchPost, fetchUpdate, fetchDelete,
-    methodNotAllowed
+    methodNotAllowed, serializeToQuery
 };

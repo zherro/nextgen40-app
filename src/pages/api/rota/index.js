@@ -1,10 +1,15 @@
-import { fetchGet, fetchPost, methodNotAllowed } from '../api.util';
+import {
+    fetchGet,
+    fetchPost,
+    methodNotAllowed,
+    serializeToQuery
+} from '../api.util';
 import { HOST_PATH, API_HOST } from '../host.environment';
 
 export default async function handler(req, res) {
     
     console.log('ROTA ROUTE')
-    console.log(req)
+    console.log(req.query)
 
     switch (req.method) {
         case 'POST':
@@ -13,7 +18,7 @@ export default async function handler(req, res) {
             break;
         case 'GET':
             console.log('ROTA.GET')
-            await fetchGet(`${API_HOST}${HOST_PATH.ROUTES.GET_ROUTES}`, req, res);
+            await fetchGet(`${API_HOST}${HOST_PATH.ROUTES.GET_ROUTES}${serializeToQuery(req.query)}`, req, res);
             break;
     
         default:

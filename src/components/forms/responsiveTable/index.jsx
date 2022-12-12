@@ -3,6 +3,7 @@ import clsx from "classnames";
 import styles from '../../../styles/components/responsiveTable.module.css';
 import { getFieldValue } from "../forms.helper";
 import { getBtnAction } from "../write-form/action-btn";
+import Pagination from "./pagination";
 
 
 const ResponsiveTable = ({
@@ -16,6 +17,8 @@ const ResponsiveTable = ({
     isOpen,
     onClose,
     onOpen,
+
+    navigateToPage
 }) => {
 
     const getStyleTable = (responsiveIn) => {
@@ -56,7 +59,7 @@ const ResponsiveTable = ({
                         </thead>
                         <tbody>
                             {
-                                data?.map((dataRow, idx) => {
+                                data?.content?.map((dataRow, idx) => {
                                     return (
                                         <tr key={idx}>
                                             {
@@ -109,6 +112,14 @@ const ResponsiveTable = ({
                                                     </td> */}
                         </tbody>
                     </table>
+                </div>
+                <div className="col-12 my-5" style={{display: 'flex', justifyContent: 'space-around'}}>
+                    <Pagination
+                        totalPages={data?.totalPages}
+                        pageNumber={data?.number}
+                        pageSize={data?.numberOfElements}
+                        navigate={(page) => navigateToPage(page)}
+                    />
                 </div>
             </div>
         </>
