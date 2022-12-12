@@ -20,7 +20,6 @@ export const crudSlice = createSlice({
         },
         rotaCreateFailure: (state, action) => {
             state.creatingRota = false;
-            state.rota = null;
             state.rotaError = action.payload;
         },
 

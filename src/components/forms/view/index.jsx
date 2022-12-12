@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getFieldView } from '../forms.helper';
 import { Wrap, Spacer, Alert, AlertIcon } from '@chakra-ui/react';
 import { getBtnAction } from "../write-form/action-btn";
@@ -8,11 +8,32 @@ const ViewFormContainer = ({
     data,
     submited,
     feedbackError,
+    setFeedbackError,
+    setModalData,
     formConfig,
+
+    setModalConfig,
+    isOpen,
+    onClose,
+    onOpen,
 }) => {
+
+    const [viewError, setViewError] = useState(null);
+    
+    useEffect(() => {
+        setModalData(data);
+    }, [data])
 
     return (
         <div className="row p-0 m-0 mt-3">
+            {
+                viewError && (
+                    <Alert status='error'>
+                        <AlertIcon />
+                        {viewError.message}
+                    </Alert>
+                )
+            }
             {
                 submited && feedbackError && feedbackError.message && (
                     <Alert status='error'>
@@ -30,7 +51,18 @@ const ViewFormContainer = ({
                     <Wrap spacing={4} gap='2' >
                         <Spacer />
                         {
-                            formConfig?.actions?.map((action, idx) => getBtnAction(() => {}, action, idx))
+                            formConfig?.actions?.map((action, idx) => getBtnAction(
+                                () => { },
+                                action,
+                                idx,
+                                data,
+                                setViewError,
+
+                                setModalConfig,
+                                isOpen,
+                                onClose,
+                                onOpen
+                            ))
                         }
                     </Wrap>
                 </div>

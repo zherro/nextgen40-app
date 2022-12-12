@@ -1,4 +1,4 @@
-import { fetchGet, fetchPost } from '../api.util';
+import { fetchGet, fetchPost, methodNotAllowed } from '../api.util';
 import { HOST_PATH, API_HOST } from '../host.environment';
 
 export default async function handler(req, res) {
@@ -17,6 +17,7 @@ export default async function handler(req, res) {
             break;
     
         default:
+            await methodNotAllowed(res);
             break;
     }
 

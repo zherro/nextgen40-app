@@ -73,6 +73,7 @@ const readResponse = (res, response) => {
 
 const invalidOperationResponse = (res) => {
     res.status(400).json({
+        error: true,
         code: "REQUEST_TYPE_ERROR",
         message: "Invalid Operation!"
     });
@@ -84,6 +85,14 @@ const validatePost = (req, res) => {
 
 const validateGet = (req, res) => {
     if (req.method !== 'GET') invalidOperationResponse(res);
+};
+
+const methodNotAllowed = (res) => {
+    res.status(400).json({
+        error: true,
+        code: "METHOD_NOT_ALLOWED",
+        message: "Method not allowed"
+    });
 };
 
 const handleResponse = async (promise, res) => {
@@ -110,9 +119,15 @@ const fetchUpdate = async (route, req, res ) => {
     await handleResponse(request, res);
 }
 
+const fetchDelete = async (route, req, res ) => {
+    let request = axios.delete(`${route}`, axiosConfigAuth({"Authorization" : req.headers['authorization']}));
+    await handleResponse(request, res);
+}
+
 export {
     axiosConfig, axiosConfigAuth, handleError,
     readResponse, invalidOperationResponse,
     validatePost, validateGet,
-    fetchGet, fetchPost, fetchUpdate
+    fetchGet, fetchPost, fetchUpdate, fetchDelete,
+    methodNotAllowed
 };

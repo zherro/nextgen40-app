@@ -18,6 +18,30 @@ const buildText = (field, values) => {
     )
 }
 
+const getBadgeClass = (field, values) => {
+    if(values && values?.[field.id] == 'ACTIVE') {
+        return 'text-bg-success';
+    } else if(values && values?.[field.id] == 'INACTIVE') {
+        return 'text-bg-danger';
+    } else if(values && values?.[field.id] == 'DELETED') {
+        return 'text-bg-secondary';
+    } else {
+        return 'text-bg-warning';
+    }
+}
+
+const getBadgeValue = (field, values) => {
+    if(values && values?.[field.id] == 'ACTIVE') {
+        return 'ATIVO';
+    } else if(values && values?.[field.id] == 'INACTIVE') {
+        return 'INATIVO';
+    } else if(values && values?.[field.id] == 'DELETED') {
+        return 'Excluido';
+    } else {
+        return 'indefinido';
+    }
+}
+
 const buildSwitch = (field, values) => {
     return (
         <>
@@ -25,8 +49,8 @@ const buildSwitch = (field, values) => {
                 <b>{field?.title}</b>
             </div>
             <div className="col-sm-12 col-md-9">
-                <span className={`badge ${values && values?.[field.id] == 'ACTIVE' ? 'text-bg-success' : 'text-bg-danger'}`}>
-                    {values && values?.[field.id] == 'ACTIVE' ? 'ATIVO' : 'INATIVO'}
+                <span className={`badge ${ getBadgeClass(field, values) }`}>
+                    { getBadgeValue(field, values) }
                 </span>
             </div>
         </>
@@ -127,6 +151,7 @@ const getFieldData = (values, field) => {
 }
 
 const getFieldValue = (field, values) => {
+
     switch (field.type) {
         case 'date-time':
             return arrayDateConverter(getFieldData(values, field?.id));
@@ -137,8 +162,8 @@ const getFieldValue = (field, values) => {
             return getFieldData(values, field?.id);
         case 'switch':
             return (
-                <span className={`badge ${values && values?.[field.id] == 'ACTIVE' ? 'text-bg-success' : 'text-bg-danger'}`}>
-                    {values && values?.[field.id] == 'ACTIVE' ? 'ATIVO' : 'INATIVO'}
+                <span className={`badge ${ getBadgeClass(field, values) }`}>
+                    { getBadgeValue(field, values) }
                 </span>
             )
         case 'print':

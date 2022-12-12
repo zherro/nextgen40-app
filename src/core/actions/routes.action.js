@@ -6,7 +6,7 @@ import {
 } from "../../context/reducer/crudSlice";
 import { routesFailure, routesRequest, routesSuccess } from "../../context/reducer/routesSlice";
 import { actionFetch } from "../helpers/action.helper";
-import { fetchPost, fetchGet, fetchUpdate } from "../helpers/service.helper";
+import { fetchPost, fetchGet, fetchUpdate, fetchDelete } from "../helpers/service.helper";
 import { fetchMyRoutes } from "../services/routes.service";
 import { API_PATHS } from '../config/api.environment';
 
@@ -53,6 +53,19 @@ const updateRota = (uuid, values) => {
   }
 }
 
+const deleteRotaById = (uuid) => {
+  return dispatch => {
+    function request() { return rotaCreateRequest(); };
+    function success(routes) { return rotaCreateSuccess(routes); };
+    function failure(error) { return rotaCreateFailure(error); };
+
+    function requestContent() { return contentLoadRequest(); };
+    function finishLoad(routes) { return contentLoadFinish(routes); };
+
+    actionFetch(() => fetchDelete(`${API_PATHS.ROUTES.CRUD_ROUTES_DELETE}${uuid}`), dispatch, request, success, failure, requestContent, finishLoad)
+  }
+}
+
 const getRotaById = (uuid) => {
 
   return dispatch => {
@@ -82,4 +95,4 @@ const getRotaAll = (params) => {
 }
 
 
-export { retrieveMyRoutes, saveRota, getRotaById, getRotaAll, updateRota};
+export { retrieveMyRoutes, saveRota, getRotaById, getRotaAll, updateRota , deleteRotaById};

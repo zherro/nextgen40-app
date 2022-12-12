@@ -90,6 +90,11 @@ const fetchUpdate = (route, data) => {
         .then(handleResponse);
 }
 
+const fetchDelete = (route) => {
+    return fetch(`${APP_HOST}${route}`, requestOptions('DELETE', {}))
+        .then(handleResponse);
+}
+
 const fetchGet = (route) => {
     return fetch(`${APP_HOST}${route}`, requestOptions('GET', {}))
         .then(handleResponse);
@@ -98,5 +103,5 @@ const fetchGet = (route) => {
 export {
     handleResponse, loginUser, logoutUser,
     authHeader, getUserRoutes, userIsAdmin,
-    userHasRole, fetchPost, fetchGet, fetchUpdate
+    userHasRole, fetchPost, fetchGet, fetchUpdate, fetchDelete,
 };

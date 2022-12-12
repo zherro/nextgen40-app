@@ -42,7 +42,7 @@ const RotaViewPage = () => {
                     loading={loadingRota}
                     dataError={rotaError}
                     formConfig={{
-                        actions: viewActions(router, uuid)
+                        actions: viewActions(router,  dispatch)
                     }}
                 />
             </CrudLayout>

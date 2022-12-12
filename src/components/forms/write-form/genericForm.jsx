@@ -17,7 +17,12 @@ const GenericForm = ({
     feedbackError,
     setFeedbackError,
     submited,
-    setSubmited
+    setSubmited,
+
+    setModalConfig,
+    isOpen,
+    onClose,
+    onOpen,
 }) => {
 
     const handleBtnSubmit = (e) => {
@@ -45,7 +50,18 @@ const GenericForm = ({
                 <Wrap spacing={4} gap='2' >
                     <Spacer />
                     {
-                        formConfig?.actions?.map((action, idx) => getBtnAction(handleBtnSubmit, action, idx))
+                        formConfig?.actions?.map((action, idx) => getBtnAction(
+                            handleBtnSubmit,
+                            action,
+                            idx,
+                            {},
+                            setFeedbackError,
+                            
+                            setModalConfig,
+                            isOpen,
+                            onClose,
+                            onOpen
+                        ))
                     }
                 </Wrap>
             </div>

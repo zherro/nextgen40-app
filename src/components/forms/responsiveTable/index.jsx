@@ -9,6 +9,13 @@ const ResponsiveTable = ({
     config,
     data,
     responsiveSize,
+    setFeedbackError,
+    setModalData,
+
+    setModalConfig,
+    isOpen,
+    onClose,
+    onOpen,
 }) => {
 
     const getStyleTable = (responsiveIn) => {
@@ -49,9 +56,6 @@ const ResponsiveTable = ({
                         </thead>
                         <tbody>
                             {
-                                console.log(data?.data)
-                            }
-                            {
                                 data?.map((dataRow, idx) => {
                                     return (
                                         <tr key={idx}>
@@ -67,18 +71,28 @@ const ResponsiveTable = ({
                                                             {row?.type !== 'action' ? getFieldValue(row, dataRow) : ''}
                                                             {
                                                                 row?.type == 'action' &&
-                                                                    <div
-                                                                        style={{
-                                                                            display: 'flex',
-                                                                            flexDirection: 'row-reverse',
-                                                                            flexWrap: 'nowrap',
-                                                                        }}
-                                                                    >
-                                                                        {
-                                                                            row?.type == 'action' &&
-                                                                                row?.actions?.map((action, idxa) => getBtnAction(() => {}, action, (''+idx)+idxa, dataRow))
-                                                                        }
-                                                                    </div>
+                                                                <div
+                                                                    style={{
+                                                                        display: 'flex'
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        row?.actions?.map((action, idxa) => getBtnAction(
+                                                                                () => {},
+                                                                                action,
+                                                                                ('' + idx) + idxa,
+                                                                                dataRow,
+                                                                                setFeedbackError,
+
+                                                                                setModalConfig,
+                                                                                isOpen,
+                                                                                onClose,
+                                                                                onOpen,
+                                                                                setModalData
+                                                                            )
+                                                                        )
+                                                                    }
+                                                                </div>
                                                             }
                                                         </td>
                                                     );

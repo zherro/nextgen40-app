@@ -11,7 +11,12 @@ const FormikBuilder = ({
     submited,
     setSubmited,
     editable,
-    data
+    data,
+
+    setModalConfig,
+    isOpen,
+    onClose,
+    onOpen,
 }) => {
     const submit = async (values, { setSubmitting, resetForm }) => {
         await fetch(values);

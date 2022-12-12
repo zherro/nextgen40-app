@@ -3,10 +3,14 @@ import { useDispatch } from "react-redux";
 import FormikBuilder from './formik';
 import { pushToast } from '@/core/actions/toast.action';
 import ViewFormContainer from "../view";
+import { useDisclosure } from "@chakra-ui/react";
+import ConfirmationModal from '../modal/confirmation-modal';
+import ResponsiveTable from '../responsiveTable';
 
 const FormBuilder = ({
     type,
     dataMap,
+    tableMap,
     formConfig,
 
     dispatch,
@@ -22,9 +26,12 @@ const FormBuilder = ({
     callbackError,
 
 }) => {
-    const [feedbackError, setFeedbackError] = useState({});
-    const [submited, setSubmited] = useState(false);
-    const [vizualizeForm, setVizualizeForm] = useState(false);
+    const [ feedbackError, setFeedbackError ] = useState({});
+    const [ submited, setSubmited ] = useState(false);
+    const [ vizualizeForm, setVizualizeForm ] = useState(false);
+    const [ modalConfig, setModalConfig ] = useState({});
+    const [ modalData, setModalData ] = useState({});
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatchForm = useDispatch();
 
     useEffect(() => {
@@ -37,10 +44,10 @@ const FormBuilder = ({
     useEffect(() => {
         
         if (submited && !loading) {
-            setSubmited(false);
 
             if (!dataError && !loading && data !== undefined && data !== null) {
                 setFeedbackError({});
+                setSubmited(false);
 
                 if (type === 'FORM' && callbackSuccess !== undefined) {
                     callbackSuccess(data);
@@ -54,6 +61,8 @@ const FormBuilder = ({
                     setVizualizeForm(true);
                 }
             } else if (dataError) {
+                console.log('ERROR aqui')
+                console.log(dataError)
                 if (callbackError !== undefined) {
                     callbackError(dataError);
                 }
@@ -96,6 +105,11 @@ const FormBuilder = ({
                     editable={editable}
                     data={data}
                     formConfig={formConfig}
+
+                    setModalConfig={setModalConfig}
+                    isOpen={isOpen}
+                    onOpen={onOpen}
+                    onClose={onClose}
                 /> 
             }
             {
@@ -109,9 +123,41 @@ const FormBuilder = ({
                         submited={submited}
                         setSubmited={setSubmited}
                         formConfig={formConfig}
+
+                        setModalConfig={setModalConfig}
+                        isOpen={isOpen}
+                        onOpen={onOpen}
+                        onClose={onClose}
+                        setModalData={setModalData}
                     />
                 )                
             }
+            {
+                type == 'RESPONSIVE_TABLE' && (
+                    <ResponsiveTable
+                        data={data}
+                        config={tableMap}
+                        setFeedbackError={setFeedbackError}
+                        setModalData={setModalData}
+
+                        setModalConfig={setModalConfig}
+                        isOpen={isOpen}
+                        onOpen={onOpen}
+                        onClose={onClose}
+                    />
+                )                
+            }
+
+            <ConfirmationModal
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={() => {
+                    setSubmited(true);
+                    onClose();
+                }}
+                data={modalData}
+                modalConfig={modalConfig}
+            />
         </>
     );
 }
