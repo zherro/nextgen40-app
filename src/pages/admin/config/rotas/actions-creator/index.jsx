@@ -155,7 +155,7 @@ const formFields = () => {
 }
 
 const crudTableFilter = {
-    size: 1,
+    size: 10,
 }
 
 const crudTableMap = (router, dispatch) => {
