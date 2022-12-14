@@ -22,15 +22,16 @@ const ConfigRotaPage = () => {
                     { name: 'Configurar' },
                     { name: 'Rotas' },
                 ]}
-                actions={[
-                    {
-                        type: 'add',
-                        title: 'Adicionar',
-                        onClick: () => { router.push(ROUTES.CONFIG_ROTA_NEW) },
-                    }
-                ]}
             >
                 <FormBuilder
+                    actions={[
+                        {
+                            type: 'add',
+                            title: 'Adicionar',
+                            onClick: () => { router.push(ROUTES.CONFIG_ROTA_NEW) },
+                        }
+                    ]}
+                    withFilter={true}
                     type="RESPONSIVE_TABLE"
                     tableFilter={crudTableFilter}
                     tableMap={{

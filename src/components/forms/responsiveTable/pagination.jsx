@@ -20,6 +20,9 @@ const Pagination = ({
         if(lastPage < pageNumber && page > maxPages && page <= getTotalPages()) {
             let pagesList = [];
             for (let i = maxPages-1; i >= 0; i--) {
+                if (pagesList.length == getTotalPages()) {
+                    break;
+                }
                 pagesList.push(page - i);
             }
 
@@ -29,7 +32,7 @@ const Pagination = ({
         } else if (page <= maxPages || lastPage > pageNumber) {
             let pagesList = [];
             for (let i = 0; i < maxPages; i++) {
-                if (i == totalPages) {
+                if (pagesList.length == getTotalPages()) {
                     break;
                 }
                 pagesList.push(page+i);
@@ -56,7 +59,7 @@ const Pagination = ({
     };
 
     const nextClass = () => {
-        return !totalPages || getPageNumber() == totalPages ? 'disabled' : '';
+        return !totalPages || getPageNumber()+1 == totalPages ? 'disabled' : '';
     };
 
     const pageItemClass = (page) => {
@@ -72,7 +75,7 @@ const Pagination = ({
                             getPageNumber() <= 0 ? () => {} : () => navigate(getPageNumber()-1)
                         }
                         style={{cursor: "pointer"}}
-                        class={prevClass()}
+                        className={prevClass()}
                     >
                         <span className="page-link"><ArrowLeftIcon /></span>
                     </li>
@@ -88,6 +91,7 @@ const Pagination = ({
                             pages.map((page, idx) => {
                             return (
                                 <li
+                                    key={idx}
                                     style={{cursor: "pointer"}}
                                     className={pageItemClass(page-1)}
                                     onClick={
@@ -114,7 +118,7 @@ const Pagination = ({
                         style={{cursor: "pointer"}}
                         className={nextClass()}
                     >
-                        <span class="page-link" href="#"><ArrowRightIcon /></span>
+                        <span className="page-link" href="#"><ArrowRightIcon /></span>
                     </li>
                 </ul>
             </nav>

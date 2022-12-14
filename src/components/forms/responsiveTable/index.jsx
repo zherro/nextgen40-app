@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "classnames";
 import styles from '../../../styles/components/responsiveTable.module.css';
 import { getFieldValue } from "../forms.helper";
 import { getBtnAction } from "../write-form/action-btn";
 import Pagination from "./pagination";
+import CrudActions from '../crud-layout/crudActions';
+import { Button, Input, InputGroup, InputLeftElement, InputRightElement, Tooltip } from "@chakra-ui/react";
+import { Search2Icon, SmallCloseIcon } from "@chakra-ui/icons";
 
 
 const ResponsiveTable = ({
@@ -12,6 +15,7 @@ const ResponsiveTable = ({
     responsiveSize,
     setFeedbackError,
     setModalData,
+    actions,
 
     setModalConfig,
     isOpen,
@@ -20,6 +24,28 @@ const ResponsiveTable = ({
 
     navigateToPage
 }) => {
+
+    const [filter, setFilter] = useState('');
+    const [alertSearch, setAlertSearch] = useState(false);
+
+    const handleSearch = () => {
+        if (filter.length < 3) {
+            setAlertSearch(true);
+        } else {
+            navigateToPage(data && data?.number ? data?.number : 0, filter);
+        }
+    }
+
+    const handleChange = (event) => {
+        setFilter(event.target.value);
+        if (alertSearch && event.target.value.length >= 3) {
+            setAlertSearch(false);
+        }
+    }
+
+    const handleClearSearch = () => {
+        setFilter('');
+    }
 
     const getStyleTable = (responsiveIn) => {
         let resposiveWhen = responsiveIn && responsiveIn !== undefined ? responsiveIn : 700;
@@ -40,6 +66,42 @@ const ResponsiveTable = ({
 
     return (
         <>
+
+            <div className="col-12 col-md-6 d-md-none">
+                {actions && <CrudActions actions={actions} />}
+            </div>
+            <div className="row mt-3">
+                <div className="col-12 col-md-6">
+                    <InputGroup size='md'>
+                        {
+                            filter.length > 0 &&
+                            <InputLeftElement width='2rem'>
+                                <Button h='1.75rem' ml='1rem' size='md' onClick={() => handleClearSearch()}>
+                                    <SmallCloseIcon />
+                                </Button>
+                            </InputLeftElement>
+                        }
+                        <Input
+                            value={filter}
+                            onChange={handleChange}
+                            pr='4.5rem'
+                            pl={filter.length > 0 ? '3rem' : '0.5rem'}
+                            type={'text'}
+                            placeholder='Enter password'
+                        />
+                        <InputRightElement width='4.5rem'>
+                            <Tooltip label='I am always open' placement='top' isOpen={alertSearch}>
+                                <Button h='1.75rem' size='md' onClick={() => handleSearch()}>
+                                    <Search2Icon />
+                                </Button>
+                            </Tooltip>
+                        </InputRightElement>
+                    </InputGroup>
+                </div>
+                <div className="col-12 col-md-6 d-none d-md-block">
+                    {actions && <CrudActions actions={actions} />}
+                </div>
+            </div>
             <div className="row mt-3">
                 <div className="col-12">
                     <table className={getStyleTable(responsiveSize)}>
@@ -81,18 +143,18 @@ const ResponsiveTable = ({
                                                                 >
                                                                     {
                                                                         row?.actions?.map((action, idxa) => getBtnAction(
-                                                                                () => {},
-                                                                                action,
-                                                                                ('' + idx) + idxa,
-                                                                                dataRow,
-                                                                                setFeedbackError,
+                                                                            () => { },
+                                                                            action,
+                                                                            ('' + idx) + idxa,
+                                                                            dataRow,
+                                                                            setFeedbackError,
 
-                                                                                setModalConfig,
-                                                                                isOpen,
-                                                                                onClose,
-                                                                                onOpen,
-                                                                                setModalData
-                                                                            )
+                                                                            setModalConfig,
+                                                                            isOpen,
+                                                                            onClose,
+                                                                            onOpen,
+                                                                            setModalData
+                                                                        )
                                                                         )
                                                                     }
                                                                 </div>
@@ -113,13 +175,22 @@ const ResponsiveTable = ({
                         </tbody>
                     </table>
                 </div>
-                <div className="col-12 my-5" style={{display: 'flex', justifyContent: 'space-around'}}>
-                    <Pagination
-                        totalPages={data?.totalPages}
-                        pageNumber={data?.number}
-                        pageSize={data?.numberOfElements}
-                        navigate={(page) => navigateToPage(page)}
-                    />
+                {
+                    (!data || data.content.length <= 0) &&
+                    <div className="col-12 text-center">
+                        Nenhum resultado encontrado!
+                    </div>
+                }
+                <div className="col-12 my-5" style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    {
+                        data && data.content.length > 0 &&
+                        <Pagination
+                            totalPages={data?.totalPages}
+                            pageNumber={data?.number}
+                            pageSize={data?.numberOfElements}
+                            navigate={(page) => navigateToPage(page, filter)}
+                        />
+                    }
                 </div>
             </div>
         </>

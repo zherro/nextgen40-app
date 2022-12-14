@@ -2,7 +2,6 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import React from "react";
 import FormTitle  from './formTitle';
-import CrudActions from "./crudActions";
 
 const CrudLayout = ({ title, actions, pieces, children }) => {
 
@@ -20,7 +19,6 @@ const CrudLayout = ({ title, actions, pieces, children }) => {
                     })
                 }
             </Breadcrumb>
-            { actions && <CrudActions actions={actions} /> }
             { children }
         </>
     );

@@ -11,7 +11,9 @@ const FormBuilder = ({
     type,
     dataMap,
     tableMap,
-    tableFilter,
+    tableFilter=false,
+    actions,
+    withFilter,
     formConfig,
 
     dispatch,
@@ -85,13 +87,14 @@ const FormBuilder = ({
     }, [])
 
     const fetchDataToTable = async () => {
-        dispatch(buildParams(0));
+        dispatch(buildParams(0, ''));
     }
 
-    const buildParams = (page) => {
+    const buildParams = (page, filter) => {
         return {
             size: (tableFilter && tableFilter?.size ? tableFilter?.size : 20),
             page: page,
+            filter: filter,
         }
     }
 
@@ -108,8 +111,8 @@ const FormBuilder = ({
         }
     }
 
-    const navigateToPage = async (page) => {
-        dispatch(buildParams(page));
+    const navigateToPage = async (page, filter) => {
+        dispatch(buildParams(page, filter));
     }
 
     return (
@@ -160,13 +163,15 @@ const FormBuilder = ({
                         filter={tableFilter}
                         setFeedbackError={setFeedbackError}
                         setModalData={setModalData}
+                        actions={actions}
+                        withFilter={withFilter}
 
                         setModalConfig={setModalConfig}
                         isOpen={isOpen}
                         onOpen={onOpen}
                         onClose={onClose}
 
-                        navigateToPage={(page) => navigateToPage(page)}
+                        navigateToPage={(page, filter) => navigateToPage(page, filter)}
                     />
                 )                
             }
