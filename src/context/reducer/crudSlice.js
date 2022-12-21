@@ -1,64 +1,82 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    creatingRota: false,
-    loadingRota: false,
+    creatingData: false,
+    loadingData: false,
+    updatingData: false,
+    loadingDataList: false,
 };
 
 export const crudSlice = createSlice({
     name: 'crudReducer',
     initialState,
     reducers: {
-        /* CRUD ROTA */
-        rotaCreateRequest: (state, action) => {
-            state.creatingRota = true;
+        /* CRUD CREATE */
+        dataCreateRequest: (state, action) => {
+            state.creatingData = true;
         },
-        rotaCreateSuccess: (state, action) => {
-            state.creatingRota = false;
-            state.rota = action.payload;
-            state.rotaError = null;
+        dataCreateSuccess: (state, action) => {
+            state.creatingData = false;
+            state.dataCreated = action.payload;
+            state.dataCreateError = null;
         },
-        rotaCreateFailure: (state, action) => {
-            state.creatingRota = false;
-            state.rotaError = action.payload;
-        },
-
-        rotaGetRequest: (state, action) => {
-            state.loadingRota = true;
-        },
-        rotaGetSuccess: (state, action) => {
-            state.loadingRota = false;
-            state.rota = action.payload;
-            state.rotaError = null;
-        },
-        rotaGetFailure: (state, action) => {
-            state.loadingRota = false;
-            state.rota = null;
-            state.rotaError = action.payload;
+        dataCreateFailure: (state, action) => {
+            state.creatingData = false;
+            state.dataCreateError = action.payload;
         },
 
+        /* CRUD UPDATE */
+        dataUpdateRequest: (state, action) => {
+            state.loadingData = true;
+        },
+        dataUpdateSuccess: (state, action) => {
+            state.loadingData = false;
+            state.data = action.payload;
+            state.dataError = null;
+        },
+        dataUpdateFailure: (state, action) => {
+            state.loadingData = false;
+            state.dataError = action.payload;
+        },
 
-        rotaListRequest: (state, action) => {
-            state.loadingRotaList = true;
+
+        /* CRUD GET */
+        dataGetRequest: (state, action) => {
+            state.loadingData = true;
         },
-        rotaListSuccess: (state, action) => {
-            state.loadingRotaList = false;
-            state.rotas = action.payload;
-            state.rotaListError = {};
+        dataGetSuccess: (state, action) => {
+            state.loadingData = false;
+            state.data = action.payload;
+            state.dataError = null;
         },
-        rotaListFailure: (state, action) => {
-            state.loadingRotaList = false;
-            state.rotaListError = action.payload;
+        dataGetFailure: (state, action) => {
+            state.loadingData = false;
+            state.data = null;
+            state.dataError = action.payload;
         },
 
+        /* CRUD LIST */
+        dataListRequest: (state, action) => {
+            state.loadingDataList = true;
+        },
+        dataListSuccess: (state, action) => {
+            state.loadingDataList = false;
+            state.dataList = action.payload;
+            state.dataListError = {};
+        },
+        dataListFailure: (state, action) => {
+            state.loadingDataList = false;
+            state.dataListError = action.payload;
+        },
         
     }
 });
 
 export const {
-    rotaCreateRequest, rotaCreateSuccess, rotaCreateFailure,
-    rotaGetRequest, rotaGetSuccess, rotaGetFailure,
-    rotaListRequest, rotaListSuccess, rotaListFailure,
+    dataCreateRequest, dataCreateSuccess, dataCreateFailure,
+    dataUpdateRequest, dataUpdateSuccess, dataUpdateFailure,
+    dataGetRequest, dataGetSuccess, dataGetFailure,
+    dataListRequest, dataListSuccess, dataListFailure,
 } = crudSlice.actions;
 
 

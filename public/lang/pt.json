@@ -10,5 +10,13 @@
   "closeMenu": "Sair do menu",
   "menu": "Menu",
   "notice1": "Oh No! Nao ha rotas configuradas para vizualizacao!",
-  "notice2": "Oh No! Nao ha rotas configuradas para vizualizacao! Voce pode configurar uma nova rota no memu 'Configurar Rota > Nova Rota'."
+  "notice2": "Oh No! Nao ha rotas configuradas para vizualizacao! Voce pode configurar uma nova rota no memu 'Configurar Rota > Nova Rota'.",
+
+
+  "config": "Configurar",
+  "add": "Adicionar",
+  "minSearchText": "Digite no minimo {0} caracteres!",
+
+  "group": "Rotas",
+  "rotaSearchPlaceholder": "ID, nome ou descricao"
 }

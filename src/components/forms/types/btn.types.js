@@ -4,4 +4,11 @@
     }
  }
 
- export { ACTION_CONDITIONS }
+ const CRUD_ACTION = {
+    ADD: 'add',
+ }
+
+ export {
+    ACTION_CONDITIONS,
+    CRUD_ACTION
+}

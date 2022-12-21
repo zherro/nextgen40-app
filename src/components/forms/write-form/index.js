@@ -10,11 +10,9 @@ import ResponsiveTable from '../responsiveTable';
 const FormBuilder = ({
     type,
     dataMap,
-    tableMap,
-    tableFilter=false,
     actions,
-    withFilter,
     formConfig,
+    tableConfig,
 
     dispatch,
     dispatchRetrieveData,
@@ -74,6 +72,16 @@ const FormBuilder = ({
                 setVizualizeForm(true)
             }
         }
+
+        if(dataError && type == 'RESPONSIVE_TABLE') {
+            console.log('ERROR aqui')
+            console.log(dataError)
+            if (callbackError !== undefined) {
+                callbackError(dataError);
+            }
+            setFeedbackError(dataError);
+        }
+    
     }, [loading, data, dataError])
 
 
@@ -92,7 +100,7 @@ const FormBuilder = ({
 
     const buildParams = (page, filter) => {
         return {
-            size: (tableFilter && tableFilter?.size ? tableFilter?.size : 20),
+            size: (tableConfig?.tableFilter && tableConfig?.tableFilter?.size ? tableConfig?.tableFilter?.size : 20),
             page: page,
             filter: filter,
         }
@@ -159,12 +167,13 @@ const FormBuilder = ({
                 type == 'RESPONSIVE_TABLE' && (
                     <ResponsiveTable
                         data={data}
-                        config={tableMap}
-                        filter={tableFilter}
+                        config={tableConfig?.tableMap}
+                        filter={tableConfig?.tableFilter}
+                        feedbackError={feedbackError}
                         setFeedbackError={setFeedbackError}
                         setModalData={setModalData}
-                        actions={actions}
-                        withFilter={withFilter}
+                        actions={tableConfig?.actions}
+                        withFilter={tableConfig?.withFilter}
 
                         setModalConfig={setModalConfig}
                         isOpen={isOpen}

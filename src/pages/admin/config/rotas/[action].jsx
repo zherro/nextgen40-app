@@ -6,15 +6,19 @@ import { ROUTES } from "@/core/config/app.environment";
 import FormBuilder from '../../../../components/forms/write-form/index';
 import { useDispatch, useSelector } from "react-redux";
 import { getRotaById, saveRota, updateRota } from '@/actions/routes.action';
-import { formFields, formActions, validationSchema, initialValues } from './actions-creator';
+import { formFields, formActions, validationSchema, initialValues } from '../../../../page-actions/admin-rota-form.action';
 
 const FormRota = () => {
     const router = useRouter();
     const { action } = router.query;
-    const [editable, setEditable] = useState(action !== 'new')
+    const [editable, setEditable] = useState(action !== 'new');
+
+    useEffect(() => {
+        setEditable(action !== 'new');
+    }, [action])
 
     const dispatch = useDispatch();
-    const { creatingRota, rota, rotaError } = useSelector(state => state.crudReducer);
+    const { creatingData, dataCreated, dataCreateError, loadingData, data, dataError } = useSelector(state => state.crudReducer);
 
     return (
         <>
@@ -32,11 +36,15 @@ const FormRota = () => {
                     callbackSuccess={(data) => router.push(ROUTES.CONFIG_ROTA_VIEW + data?.uuid)}
                     dispatch={(values) => editable ? dispatch(updateRota(action, values)) : dispatch(saveRota(values))}
                     dispatchRetrieveData={(id) => dispatch(getRotaById(id))}
-                    loading={creatingRota}
-                    data={rota && rota !== undefined && rota !== null ? rota : {}}
+                    loading={ editable ? loadingData : creatingData }
+                    data={
+                        editable && data && data !== undefined && data !== null
+                        ? data
+                        : !editable && dataCreated && dataCreated !== undefined && dataCreated !== null ? dataCreated : {}
+                    }
                     editable={editable}
                     editId={action}
-                    dataError={rotaError}
+                    dataError={ editable ? dataError : dataCreateError }
                     formConfig={{
                         fields: formFields(),
                         actions: formActions(router),

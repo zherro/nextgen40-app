@@ -61,7 +61,8 @@ const ViewFormContainer = ({
                                 setModalConfig,
                                 isOpen,
                                 onClose,
-                                onOpen
+                                onOpen,
+                                setModalData
                             ))
                         }
                     </Wrap>

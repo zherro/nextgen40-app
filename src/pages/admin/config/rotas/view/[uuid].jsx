@@ -6,7 +6,7 @@ import { ROUTES } from "@/core/config/app.environment";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dataMap, viewActions } from "../actions-creator";
+import { dataMap, viewActions } from "../../../../../page-actions/admin-rota-view.action";
 
 const RotaViewPage = () => {
 
@@ -16,7 +16,7 @@ const RotaViewPage = () => {
     const [ id, setId ] = useState();
 
     const dispatch = useDispatch();
-    const { loadingRota, rota, rotaError } = useSelector(state => state.crudReducer);
+    const { loadingData, data, dataError } = useSelector(state => state.crudReducer);
 
     useEffect(() => {
         if(uuid != undefined) {
@@ -38,9 +38,9 @@ const RotaViewPage = () => {
                     type="VIEW"
                     dispatch={() => {}}
                     dataMap={dataMap}
-                    data={rota}
-                    loading={loadingRota}
-                    dataError={rotaError}
+                    data={data}
+                    loading={loadingData}
+                    dataError={dataError}
                     formConfig={{
                         actions: viewActions(router,  dispatch)
                     }}

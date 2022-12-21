@@ -1,54 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CrudLayout from "@/components/forms/crud-layout/crudLayout";
 import DefaultLayout from "@/components/layouts/default-layout";
 import { useRouter } from 'next/router';
-import { ROUTES } from "@/core/config/app.environment";
 import { getRotaAll } from "@/actions/routes.action";
 import { useDispatch, useSelector } from "react-redux";
-import { crudTableFilter, crudTableMap } from "./actions-creator";
+import { tableFilterConfig, tableHead, tableRowsConfig, tableAction } from "../../../../page-actions/admin-rota-table.action";
+import { FORM_TYPE } from '@/components/forms/types/form.types';
 import FormBuilder from '@/components/forms/write-form';
+import useTranslations from "@/hooks/useTranslations";
 
 const ConfigRotaPage = () => {
     const router = useRouter();
+    const { lang, t } = useTranslations();
 
     const dispatch = useDispatch();
-    const { loadingRotaList, rotas, rotaListError } = useSelector(state => state.crudReducer);
+    const { loadingDataList, dataList, dataListError } = useSelector(state => state.crudReducer);
 
     return (
         <>
             <CrudLayout
-                title="Rotas"
+                title={t.group}
                 pieces={[
-                    { name: 'Configurar' },
-                    { name: 'Rotas' },
+                    { name: t.config },
+                    { name: t.group },
                 ]}
             >
                 <FormBuilder
-                    actions={[
-                        {
-                            type: 'add',
-                            title: 'Adicionar',
-                            onClick: () => { router.push(ROUTES.CONFIG_ROTA_NEW) },
-                        }
-                    ]}
-                    withFilter={true}
-                    type="RESPONSIVE_TABLE"
-                    tableFilter={crudTableFilter}
-                    tableMap={{
-                        head: [
-                            { title: '#ID' },
-                            { title: 'Nome' },
-                            { title: 'Status' },
-                            { title: 'Criado em', hideWhen: 900 },
-                            { title: 'Criado Por' },
-                            { title: 'Acoes' },
-                        ],
-                        rows: crudTableMap(router, dispatch)
-                    }}
+                    type={FORM_TYPE.RESPONSIVE_TABLE}
                     dispatch={(params) => dispatch(getRotaAll(params))}
-                    data={rotas}
-                    loading={loadingRotaList}
-                    dataError={rotaListError}
+                    data={dataList}
+                    loading={loadingDataList}
+                    dataError={dataListError}
+                    
+                    tableConfig={{
+                        actions: tableAction(t, router),
+                        withFilter: true,
+                        tableFilter: tableFilterConfig(t),
+                        tableMap: {
+                            head: tableHead,
+                            rows: tableRowsConfig(router, dispatch)
+                        },
+                    }}
                 />
             </CrudLayout>
         </>

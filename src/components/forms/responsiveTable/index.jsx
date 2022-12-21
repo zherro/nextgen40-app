@@ -5,15 +5,17 @@ import { getFieldValue } from "../forms.helper";
 import { getBtnAction } from "../write-form/action-btn";
 import Pagination from "./pagination";
 import CrudActions from '../crud-layout/crudActions';
-import { Button, Input, InputGroup, InputLeftElement, InputRightElement, Tooltip } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, Input, InputGroup, InputLeftElement, InputRightElement, Tooltip } from "@chakra-ui/react";
 import { Search2Icon, SmallCloseIcon } from "@chakra-ui/icons";
-
+import { stringInject } from "../../../core/helpers/string.helper";
 
 const ResponsiveTable = ({
     config,
     data,
+    filter,
     responsiveSize,
     setFeedbackError,
+    feedbackError,
     setModalData,
     actions,
 
@@ -25,20 +27,22 @@ const ResponsiveTable = ({
     navigateToPage
 }) => {
 
-    const [filter, setFilter] = useState('');
+    const [filterInput, setFilter] = useState('');
     const [alertSearch, setAlertSearch] = useState(false);
 
+    const getMinSearchLength = () => { return filter?.minSearch ? filter?.minSearch : 3 }
+
     const handleSearch = () => {
-        if (filter.length < 3) {
+        if (filterInput.length > 0 && filterInput.length < getMinSearchLength()) {
             setAlertSearch(true);
         } else {
-            navigateToPage(data && data?.number ? data?.number : 0, filter);
+            navigateToPage(data && data?.number ? data?.number : 0, filterInput);
         }
     }
 
     const handleChange = (event) => {
         setFilter(event.target.value);
-        if (alertSearch && event.target.value.length >= 3) {
+        if (alertSearch && event.target.value.length >= getMinSearchLength()) {
             setAlertSearch(false);
         }
     }
@@ -66,7 +70,14 @@ const ResponsiveTable = ({
 
     return (
         <>
-
+            {
+                feedbackError && feedbackError.message && (
+                    <Alert status='error'>
+                        <AlertIcon />
+                        { feedbackError.message }
+                    </Alert>
+                )
+            }
             <div className="col-12 col-md-6 d-md-none">
                 {actions && <CrudActions actions={actions} />}
             </div>
@@ -74,23 +85,31 @@ const ResponsiveTable = ({
                 <div className="col-12 col-md-6">
                     <InputGroup size='md'>
                         {
-                            filter.length > 0 &&
-                            <InputLeftElement width='2rem'>
-                                <Button h='1.75rem' ml='1rem' size='md' onClick={() => handleClearSearch()}>
-                                    <SmallCloseIcon />
-                                </Button>
-                            </InputLeftElement>
+                            filter?.withClearButton && filterInput.length > 0 &&
+                                <InputLeftElement width='2rem'>
+                                    <Button h='1.75rem' ml='1rem' size='md' onClick={() => handleClearSearch()}>
+                                        <SmallCloseIcon />
+                                    </Button>
+                                </InputLeftElement>
                         }
                         <Input
-                            value={filter}
+                            value={filterInput}
                             onChange={handleChange}
                             pr='4.5rem'
-                            pl={filter.length > 0 ? '3rem' : '0.5rem'}
+                            pl={filterInput.length > 0 ? '3rem' : '0.5rem'}
                             type={'text'}
-                            placeholder='Enter password'
+                            placeholder={ filter?.placeholder ? filter?.placeholder : '' }
                         />
                         <InputRightElement width='4.5rem'>
-                            <Tooltip label='I am always open' placement='top' isOpen={alertSearch}>
+                            <Tooltip
+                                label={ 
+                                    filter?.minSearchAlert
+                                    ? stringInject(filter?.minSearchAlert, [getMinSearchLength()])
+                                    : 'ERROR: alert not configured!'
+                                }
+                                placement='top'
+                                isOpen={alertSearch}
+                            >
                                 <Button h='1.75rem' size='md' onClick={() => handleSearch()}>
                                     <Search2Icon />
                                 </Button>
@@ -188,7 +207,7 @@ const ResponsiveTable = ({
                             totalPages={data?.totalPages}
                             pageNumber={data?.number}
                             pageSize={data?.numberOfElements}
-                            navigate={(page) => navigateToPage(page, filter)}
+                            navigate={(page) => navigateToPage(page, filterInput)}
                         />
                     }
                 </div>

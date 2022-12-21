@@ -9,6 +9,15 @@
   "logout": "Logout",
   "closeMenu": "Close Menu",
   "menu": "Menu",
+
   "notice1": "Oh No! Nao ha rotas configuradas para vizualizacao!",
-  "notice2": "Oh No! Nao ha rotas configuradas para vizualizacao! Voce pode configurar uma nova rota no memu 'Configurar Rota > Nova Rota'."
+  "notice2": "Oh No! Nao ha rotas configuradas para vizualizacao! Voce pode configurar uma nova rota no memu 'Configurar Rota > Nova Rota'.",
+  
+
+  "config": "Config",
+  "add": "Add",
+  "minSearchText": "Required min {0} characters for search!",
+
+  "group": "Groups",
+  "rotaSearchPlaceholder": "ID, name or description"
 }
