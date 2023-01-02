@@ -18,5 +18,6 @@
   "minSearchText": "Digite no minimo {0} caracteres!",
 
   "group": "Rotas",
-  "rotaSearchPlaceholder": "ID, nome ou descricao"
+  "rotaSearchPlaceholder": "ID, nome ou descricao",
+  "userSearchPlaceholder": "ID, usuario ou email"
 }

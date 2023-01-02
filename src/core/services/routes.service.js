@@ -19,4 +19,20 @@ const fetchMyRoutes = () => {
         .then(handleResponse);
 }
 
-export { fetchMyRoutes };
+const fetchActiveRoutes = () => {
+
+    let token = authHeader();
+    
+    let requestOptions = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            ...token
+        },
+    };
+
+    return fetch(`${APP_HOST}${API_PATHS.ROUTES.CRUD_ROUTES_ACTIVE}`, requestOptions)
+        .then(handleResponse);
+}
+
+export { fetchMyRoutes, fetchActiveRoutes };

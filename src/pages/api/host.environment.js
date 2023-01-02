@@ -8,7 +8,19 @@ export const HOST_PATH = {
     ROUTES: {
         GET_MY_ROUTES: "/api/rotas/my-routes",
         POST_ROUTES: "/api/rotas",
+        POST_AUTHORIZE_ROUTES: "/api/rotas/authorize",
         GET_ROUTE: "/api/rotas/",
         GET_ROUTES: "/api/rotas",
+        GET_ACTIVE_ROUTES: "/api/rotas/actives",
+    },
+    USERS: {
+        POST_USERS: "/api/users",
+        GET_USER: "/api/users/",
+        GET_USERS: "/api/users",
+    },
+    ROLES: {
+        POST_ROLES: "/api/roles",
+        GET_ROLE: "/api/roles/",
+        GET_ROLES: "/api/roles",
     }
 }

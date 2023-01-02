@@ -15,8 +15,17 @@ export const API_PATHS = {
   ROUTES: {
     GET_MY_ROUTES: "/api/rota/rotas",
     CRUD_ROUTES: "/api/rota",
+    CRUD_ROUTES_AUTHORIZE_USER: "/api/rota/authorize",
     CRUD_ROUTES_UPDATE: "/api/rota/",
     CRUD_ROUTES_DELETE: "/api/rota/",
     CRUD_ROUTES_GET_BY_ID: "/api/rota/",
+    CRUD_ROUTES_ACTIVE: "/api/rota/actives",
+  },
+  USERS: {
+    GET_MY_USERS: "/api/user/users",
+    CRUD_USERS: "/api/user",
+    CRUD_USERS_UPDATE: "/api/user/",
+    CRUD_USERS_DELETE: "/api/user/",
+    CRUD_USERS_GET_BY_ID: "/api/user/",
   }
 }

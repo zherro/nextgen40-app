@@ -19,5 +19,6 @@
   "minSearchText": "Required min {0} characters for search!",
 
   "group": "Groups",
-  "rotaSearchPlaceholder": "ID, name or description"
+  "rotaSearchPlaceholder": "ID, name or description",
+  "userSearchPlaceholder": "ID, user or email"
 }
