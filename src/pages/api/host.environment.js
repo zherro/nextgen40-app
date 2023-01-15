@@ -13,6 +13,10 @@ export const HOST_PATH = {
         GET_ROUTES: "/api/rotas",
         GET_ACTIVE_ROUTES: "/api/rotas/actives",
     },
+    ACCOUNT: {
+        PATH: "/api/accounts",
+        PATH_WITH_PARAM: "/api/accounts/",
+    },
     USERS: {
         POST_USERS: "/api/users",
         GET_USER: "/api/users/",

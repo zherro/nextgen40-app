@@ -98,6 +98,12 @@ const DefaultLayout = (page) => {
                                 icon: <SettingsIcon />,
                                 name: "Configurar ROTA"
                             },
+                            {
+                                show: userHasRole('CONFIG_ROTA'),
+                                action: () => router.push(ROUTES.CONFIG_ACCOUNT),
+                                icon: <SettingsIcon />,
+                                name: "Configurar Contas"
+                            },
                         ]
                     },
                 ]}

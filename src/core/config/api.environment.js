@@ -21,6 +21,10 @@ export const API_PATHS = {
     CRUD_ROUTES_GET_BY_ID: "/api/rota/",
     CRUD_ROUTES_ACTIVE: "/api/rota/actives",
   },
+  ACCOUNT: {
+    CRUD_ACCOUNT: "/api/account",
+    CRUD_ACCOUNT_WHIT_PARAM: "/api/account/",
+  },
   USERS: {
     GET_MY_USERS: "/api/user/users",
     CRUD_USERS: "/api/user",
