@@ -45,20 +45,23 @@ const fieldSwitch = (field, values, setFieldValue) => {
 
     return (
         <>
-            <div className="btn-group" role="group" >
-                {
-                    field?.options?.map((opt, idx) =>
-                        <button
-                            id={field.id}
-                            name={field.id}
-                            key={idx}
-                            onClick={() => select(opt.value)}
-                            type="button"
-                            className={`btn btn-${opt.value !== values[field.id] ? 'outline-' : ''}${opt?.type ? opt.type : 'primary'}`}
-                        >
-                            {opt.title}
-                        </button>)
-                }
+            <label className="form-label pr-2">{field?.title}</label>
+            <div className="form-control">
+                <div className="btn-group" role="group" style={{ width: '100%', maxWidth: '400px' }} >
+                    {
+                        field?.options?.map((opt, idx) =>
+                            <button
+                                id={field.id}
+                                name={field.id}
+                                key={idx}
+                                onClick={() => select(opt.value)}
+                                type="button"
+                                className={`btn btn-${opt.value !== values[field.id] ? 'outline-' : ''}${opt?.type ? opt.type : 'primary'}`}
+                            >
+                                {opt.title}
+                            </button>)
+                    }
+                </div>
             </div>
         </>
     )
@@ -66,12 +69,12 @@ const fieldSwitch = (field, values, setFieldValue) => {
 
 const fieldHidden = (handleChange, field, values) => {
     return <input
-                id={field.id}
-                name={field.id}
-                value={values[field.id] ? values[field.id] : ''}
-                onChange={handleChange}
-                type="hidden"
-            />
+        id={field.id}
+        name={field.id}
+        value={values[field.id] ? values[field.id] : ''}
+        onChange={handleChange}
+        type="hidden"
+    />
 }
 
 const getField = (setFieldValue, handleChange, submitted, errors, values, field, idx) => {

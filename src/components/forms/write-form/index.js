@@ -73,12 +73,13 @@ const FormBuilder = ({
             }
         }
 
-        if(dataError && type == 'RESPONSIVE_TABLE') {
+        if(dataError && (editId != undefined && editable) || (type == 'RESPONSIVE_TABLE')) {
             console.log('ERROR aqui')
             console.log(dataError)
             if (callbackError !== undefined) {
                 callbackError(dataError);
             }
+            setSubmited(true)
             setFeedbackError(dataError);
         }
     

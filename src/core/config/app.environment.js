@@ -13,6 +13,11 @@ export const ROUTES = {
     CONFIG_ACCOUNT_EDIT: "/admin/config/accounts/",
     CONFIG_ACCOUNT_VIEW: "/admin/config/accounts/view/",
 
+    CONFIG_ACCOUNT_OPERATION: "/admin/config/accounts-operation",
+    CONFIG_ACCOUNT_OPERATION_NEW: "/admin/config/accounts-operation/new",
+    CONFIG_ACCOUNT_OPERATION_EDIT: "/admin/config/accounts-operation/",
+    CONFIG_ACCOUNT_OPERATION_VIEW: "/admin/config/accounts-operation/view/",
+
 
     CONFIG_USER: "/admin/config/users",
     CONFIG_USER_NEW: "/admin/config/users/new",

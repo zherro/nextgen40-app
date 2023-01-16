@@ -18,28 +18,60 @@ const buildText = (field, values) => {
     )
 }
 
-const getBadgeClass = (field, values) => {
-    if(values && values?.[field.id] == 'ACTIVE') {
-        return 'text-bg-success';
-    } else if(values && values?.[field.id] == 'INACTIVE') {
-        return 'text-bg-danger';
-    } else if(values && values?.[field.id] == 'DELETED') {
-        return 'text-bg-secondary';
-    } else {
-        return 'text-bg-warning';
+
+const retrieveSwitchOptions = (field) => {
+    if (field.options !== undefined && field?.options.length > 0) {
+        return field.options;
     }
+
+    return [
+        {
+            title: 'Ativo',
+            value: 'ACTIVE',
+            type: 'success',
+        },
+        {
+            title: 'Inativo',
+            value: 'INACTIVE',
+            type: 'danger',
+        },
+        {
+            title: 'Removido',
+            value: 'DELETED',
+            type: 'secondary',
+        }
+    ];
+}
+
+const getBadgeClass = (field, values) => {
+
+    let options = retrieveSwitchOptions(field);
+
+    for (let i = 0; i < options.length; i++) {
+        if(values && values?.[field.id] == options[i].value) {
+            switch (options[i].type) {
+                case 'success': return 'text-bg-success';
+                case 'danger': return 'text-bg-danger';
+                case 'secondary': return 'text-bg-secondary';
+                default:return 'text-bg-warning';
+            }
+        }
+    }
+    
+    return 'text-bg-warning';
 }
 
 const getBadgeValue = (field, values) => {
-    if(values && values?.[field.id] == 'ACTIVE') {
-        return 'ATIVO';
-    } else if(values && values?.[field.id] == 'INACTIVE') {
-        return 'INATIVO';
-    } else if(values && values?.[field.id] == 'DELETED') {
-        return 'Excluido';
-    } else {
-        return 'indefinido';
+
+    let options = retrieveSwitchOptions(field);
+
+    for (let i = 0; i < options.length; i++) {
+        if(values && values?.[field.id] == options[i].value) {
+            return options[i].title;
+        }
     }
+
+    return 'indefinido';
 }
 
 const buildSwitch = (field, values) => {
@@ -49,8 +81,8 @@ const buildSwitch = (field, values) => {
                 <b>{field?.title}</b>
             </div>
             <div className="col-sm-12 col-md-9">
-                <span className={`badge ${ getBadgeClass(field, values) }`}>
-                    { getBadgeValue(field, values) }
+                <span className={`badge ${getBadgeClass(field, values)}`}>
+                    {getBadgeValue(field, values)}
                 </span>
             </div>
         </>
@@ -162,8 +194,8 @@ const getFieldValue = (field, values) => {
             return getFieldData(values, field?.id);
         case 'switch':
             return (
-                <span className={`badge ${ getBadgeClass(field, values) }`}>
-                    { getBadgeValue(field, values) }
+                <span className={`badge ${getBadgeClass(field, values)}`}>
+                    {getBadgeValue(field, values)}
                 </span>
             )
         case 'print':

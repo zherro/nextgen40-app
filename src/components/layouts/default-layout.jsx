@@ -104,6 +104,12 @@ const DefaultLayout = (page) => {
                                 icon: <SettingsIcon />,
                                 name: "Configurar Contas"
                             },
+                            {
+                                show: userHasRole('CONFIG_ROTA'),
+                                action: () => router.push(ROUTES.CONFIG_ACCOUNT_OPERATION),
+                                icon: <SettingsIcon />,
+                                name: "Configurar Tipo de Movimentos"
+                            },
                         ]
                     },
                 ]}
