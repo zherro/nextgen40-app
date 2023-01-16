@@ -29,6 +29,10 @@ export const API_PATHS = {
     CRUD_ACCOUNT_OPERATION: "/api/account-operation",
     CRUD_ACCOUNT_OPERATION_WHIT_PARAM: "/api/account-operation/",
   },
+  CONTRACT_MODEL: {
+    CRUD_CONTRACT_MODEL: "/api/contract-model",
+    CRUD_CONTRACT_MODEL_WHIT_PARAM: "/api/contract-model/",
+  },
   USERS: {
     GET_MY_USERS: "/api/user/users",
     CRUD_USERS: "/api/user",

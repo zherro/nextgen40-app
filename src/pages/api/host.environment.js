@@ -21,6 +21,10 @@ export const HOST_PATH = {
         PATH: "/api/accounts-operation",
         PATH_WITH_PARAM: "/api/accounts-operation/",
     },
+    CONTRACT_MODEL: {
+        PATH: "/api/contract-model",
+        PATH_WITH_PARAM: "/api/contract-model/",
+    },
     USERS: {
         POST_USERS: "/api/users",
         GET_USER: "/api/users/",

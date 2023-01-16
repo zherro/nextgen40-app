@@ -18,6 +18,10 @@ export const ROUTES = {
     CONFIG_ACCOUNT_OPERATION_EDIT: "/admin/config/accounts-operation/",
     CONFIG_ACCOUNT_OPERATION_VIEW: "/admin/config/accounts-operation/view/",
 
+    CONFIG_CONTRACT_MODEL: "/admin/config/contract-model",
+    CONFIG_CONTRACT_MODEL_NEW: "/admin/config/contract-model/new",
+    CONFIG_CONTRACT_MODEL_EDIT: "/admin/config/contract-model/",
+    CONFIG_CONTRACT_MODEL_VIEW: "/admin/config/contract-model/view/",
 
     CONFIG_USER: "/admin/config/users",
     CONFIG_USER_NEW: "/admin/config/users/new",

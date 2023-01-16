@@ -110,6 +110,12 @@ const DefaultLayout = (page) => {
                                 icon: <SettingsIcon />,
                                 name: "Configurar Tipo de Movimentos"
                             },
+                            {
+                                show: userHasRole('CONFIG_ROTA'),
+                                action: () => router.push(ROUTES.CONFIG_CONTRACT_MODEL),
+                                icon: <SettingsIcon />,
+                                name: "Configurar Modelos de Contrato"
+                            },
                         ]
                     },
                 ]}
