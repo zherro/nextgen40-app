@@ -1,7 +1,7 @@
 import { TypeInputAddonEnum } from "../enums/TypeInputAddon.enum";
 
 export default interface InputSideAddon {
-    type: TypeInputAddonEnum,
+    type: TypeInputAddonEnum;
     pointerEvents: any;
     color: string;
     fontSize: string;

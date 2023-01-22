@@ -9,29 +9,25 @@ const inputHiddenHelper = (fieldId) => {
     }
 }
 
-const inputAddonInside = (child: any) => {
+const inputAddonInside = (addonConfig: any) => {
 
-    if(child != undefined) {
+    if(addonConfig != undefined && addonConfig != null) {
         return {
             type: TypeInputAddonEnum.INSIDE,
             pointerEvents: 'none',
-            color: 'gray.300',
-            fontSize: '1.2em',
-            child: child,
+            child: addonConfig.child,
         }
     }
 
     return undefined;
 }
 
-const inputAddon = (child: any) => {
+const inputAddon = (addonConfig: any) => {
 
-    if(child != undefined) {
+    if(addonConfig != undefined && addonConfig != null) {
         return {
             type: TypeInputAddonEnum.NORMAL,
-            color: '',
-            fontSize: '1.2em',
-            child: child,
+            child: addonConfig.chield,
         }
     }
 
@@ -50,13 +46,36 @@ const getInputAddon = (addonConfig: InputSideAddon) => {
         case TypeInputAddonEnum.NORMAL:
             return inputAddon(addonConfig);
         case TypeInputAddonEnum.INSIDE:
-            // return inputAddonInside(addonConfig);
+            return inputAddonInside(addonConfig);
     
         default:
             return undefined;
     }
 }
 
+const inputNumberHelper = ({
+    fieldId,
+    title,
+    sizeClass,
+    size = 'md',
+    leftAddon=null,
+    rightAddon=null,
+}) => {
+
+    return {
+        id: fieldId,
+        title: title,
+        type: FieldTypeEnum.NUMBER,
+        sizeClass: sizeClass,
+        maxW: '100%',
+        step: 1,
+        min: 1,
+        precision: 0,
+        size: size,
+        leftAddonChildren: getInputAddon(leftAddon),
+        rightAddonChildren: getInputAddon(rightAddon),
+    };
+}
 
 const inputPriceHelper = ({
     fieldId,
@@ -66,6 +85,7 @@ const inputPriceHelper = ({
     leftAddon=null,
     rightAddon=null,
 }) => {
+
     return {
         id: fieldId,
         title: title,
@@ -82,5 +102,6 @@ const inputPriceHelper = ({
 
 export {
     inputHiddenHelper,
-    inputPriceHelper
+    inputPriceHelper,
+    inputNumberHelper
 }

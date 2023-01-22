@@ -1,4 +1,4 @@
-import { inputHiddenHelper, inputPriceHelper } from '@/components/forms/helpers/Field.helper';
+import { inputHiddenHelper, inputNumberHelper, inputPriceHelper } from '@/components/forms/helpers/Field.helper';
 import { TypeInputAddonEnum } from '@/components/forms/shared/enums/TypeInputAddon.enum';
 import { ROUTES } from '@/core/config/app.environment';
 import * as yup from 'yup';
@@ -56,12 +56,11 @@ const formFields = () => {
             sizeClass: sizeOfNumerFields,
             leftAddon: addonReal
         }),
-        {
-            id: 'qtdQuotes',
-            title: 'Quantidade de parcelas:',
-            type: 'text',
-            sizeClass: 'col-sm-12 col-md-4'
-        },
+        inputNumberHelper({
+            fieldId: 'qtdQuotes',
+            title: 'Quantidade de parcelas: *',
+            sizeClass: sizeOfNumerFields,
+        }),
         {
             id: 'quotePrice',
             title: 'Valor da parcela:',

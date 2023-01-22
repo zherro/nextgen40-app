@@ -32,6 +32,8 @@ import {
 
  `leftAddonChildren` and `rightAddonChildren`:
     pointerEvents: If the left or right is an icon or text, you can pass pointerEvents="none" to InputLeftElement or InputRightElement to ensure that clicking on them focused the input.
+        type Property.PointerEvents = "fill" | "none" | CSS.Globals | "auto" | "stroke" | "all" | "painted" | "visible" | "visibleFill" | "visiblePainted" | "visibleStroke"
+    
     color: hexadecimal code or name color;
     fontSize: font size in em. Ex: size='1.2em'
     children: string or icon component;
@@ -54,7 +56,7 @@ const InputNumber = ({
     setValue = (id, e) => { },
     onChange = (e) => { },
     size = 'md',
-    variant = 'filled',
+    variant = '',
 
     leftAddonChildren = null,
     rightAddonChildren = null,
@@ -81,10 +83,12 @@ const InputNumber = ({
             let input: InputSideAddon = {
                 type: data?.type,
                 pointerEvents: data?.pointerEvents ? data?.pointerEvents : '',
-                color: data?.color ? data?.color : 'gray.300',
+                color: data?.color ? data?.color : 'gray.500',
                 fontSize: data?.fontSize ? data?.fontSize : '1.2em',
-                child: data?.child ? data?.child : {},
+                child: data?.child ? data?.child : '',
             };
+
+            console.log(data.child)
 
             if (side === 'LEFT') {
                 return (
@@ -130,7 +134,7 @@ const InputNumber = ({
             number = (val).replace(/\D/g, '');
         }
         
-        let monetary = String(+number).padStart(3, '0');
+        let monetary = String(+number).padStart(precision + 1, '0');
         let integers = '' + monetary.substring(0, monetary.length - precision);
         let decimals = '' + monetary.substring(monetary.length - precision, monetary.length);
 
@@ -159,6 +163,8 @@ const InputNumber = ({
     }
 
     const maskValue = async (v) => {
+
+        console.log(v)
 
         let dataValue = processValue(v);
 
@@ -191,7 +197,7 @@ const InputNumber = ({
             dataValue.integers = newNumber;
         }
 
-        let monetary = (dataValue.isNegative ? '-' : '') + dataValue.integers + '.' + dataValue.decimals;
+        let monetary = (dataValue.isNegative ? '-' : '') + dataValue.integers + (precision > 0 ? '.' + dataValue.decimals : '');
         setValue(id, monetary);
     }
 
@@ -200,7 +206,7 @@ const InputNumber = ({
             <HStack maxW={maxW}>
                 {/* <Button {...dec}>-</Button> */}
                 <Button onClick={() => dec()}>-</Button>
-                <InputGroup size='sm'>
+                <InputGroup size={size}>
                     { getInputAddon(leftAddonChildren) }
                     <Input
                         className={className}
