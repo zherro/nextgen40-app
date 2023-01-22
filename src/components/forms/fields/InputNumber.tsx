@@ -1,14 +1,13 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import InputSideAddon from '../shared/types/InputSideAddon';
 import {
-    useNumberInput,
     HStack,
     Button,
     Input,
     InputRightAddon,
     InputLeftAddon,
     InputGroup,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
 /**
 ### InputNumber Fields
@@ -61,15 +60,31 @@ const InputNumber = ({
     rightAddonChildren = null,
 }) => {
 
+    useEffect(() => {
+        if (value == null || value == undefined) {
+            value = defaultValue;
+            maskValue(defaultValue);
+        }
+
+        if(+value < min) {
+            maskValue(min.toFixed(precision));
+        }
+
+        if(+value > max) {
+            maskValue(max.toFixed(precision));
+        }
+    }, [value])
+
     const getInputAddon = (data: any, side: string = 'LEFT'): ReactElement => {
 
         if (data && data != null && data != undefined) {
-            let input: InputSideAddon;
-
-            input.pointerEvents = data?.pointerEvents ? data?.pointerEvents : 'none';
-            input.color = data?.color ? data?.color : 'gray.300';
-            input.fontSize = data?.fontSize ? data?.fontSize : '1.2em';
-            input.children = data?.children ? data?.children : {};
+            let input: InputSideAddon = {
+                type: data?.type,
+                pointerEvents: data?.pointerEvents ? data?.pointerEvents : '',
+                color: data?.color ? data?.color : 'gray.300',
+                fontSize: data?.fontSize ? data?.fontSize : '1.2em',
+                child: data?.child ? data?.child : {},
+            };
 
             if (side === 'LEFT') {
                 return (
@@ -77,7 +92,7 @@ const InputNumber = ({
                         pointerEvents={input.pointerEvents}
                         color={input.color}
                         fontSize={input.fontSize}
-                        children={input.children}
+                        children={input.child}
                     />
                 );
             } else {
@@ -86,7 +101,7 @@ const InputNumber = ({
                         pointerEvents={input.pointerEvents}
                         color={input.color}
                         fontSize={input.fontSize}
-                        children={input.children}
+                        children={input.child}
                     />
                 );
             }
@@ -103,25 +118,29 @@ const InputNumber = ({
         }
 
         return processValue(value);
-
-
     }
 
     const processValue = (value) => {
+
         let isNegative = ('' + value).indexOf('-') >= 0;
-        let number = (''+value).replace(/\D/g, '');
+        let number = ('' + value).replace(/\D/g, '');
+
+        if(+value < min) {
+            let val = min.toFixed(precision);
+            number = (val).replace(/\D/g, '');
+        }
+        
         let monetary = String(+number).padStart(3, '0');
-
-        console.log('value='+value);
-
         let integers = '' + monetary.substring(0, monetary.length - precision);
         let decimals = '' + monetary.substring(monetary.length - precision, monetary.length);
+
+        let valueNumber = +((isNegative ? '-' : '') + integers + (precision > 0 ? '.' + decimals : ''));
 
         return {
             isNegative: isNegative,
             integers: integers,
             decimals: decimals,
-            value: +((isNegative ? '-' : '') + integers + (precision > 0 ? '.' + decimals : '')),
+            value: valueNumber,
         };
     }
 
@@ -172,7 +191,6 @@ const InputNumber = ({
             dataValue.integers = newNumber;
         }
 
-
         let monetary = (dataValue.isNegative ? '-' : '') + dataValue.integers + '.' + dataValue.decimals;
         setValue(id, monetary);
     }
@@ -183,7 +201,7 @@ const InputNumber = ({
                 {/* <Button {...dec}>-</Button> */}
                 <Button onClick={() => dec()}>-</Button>
                 <InputGroup size='sm'>
-                    {getInputAddon(leftAddonChildren)}
+                    { getInputAddon(leftAddonChildren) }
                     <Input
                         className={className}
                         id={id}
@@ -193,7 +211,7 @@ const InputNumber = ({
                         size={size}
                         variant={variant}
                     />
-                    {getInputAddon(rightAddonChildren, 'RIGHT')}
+                    { getInputAddon(rightAddonChildren, 'RIGHT') }
                 </InputGroup>
                 {/* <Button {...inc}>+</Button> */}
                 <Button onClick={() => inc()}>+</Button>

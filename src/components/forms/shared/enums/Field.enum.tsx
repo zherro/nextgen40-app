@@ -1,3 +1,3 @@
-export enum FieldType {
+export enum FieldTypeEnum {
     TEXT, TEXT_AREA, SWITCH, HIDDEN, NUMBER, DATE, DATE_TIME, SELECT,
 }

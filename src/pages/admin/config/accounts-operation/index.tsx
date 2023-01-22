@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import { getAccountOperationAll } from "@/actions/accountOperation.action";
 import { useDispatch, useSelector } from "react-redux";
 import { tableFilterConfig, tableHead, tableRowsConfig, tableAction } from "../../../../page-actions/admin-accountOperation-table.action";
-import { FORM_TYPE } from '@/components/forms/types/form.types';
 import FormBuilder from '@/components/forms/write-form';
 import useTranslations from "@/hooks/useTranslations";
+import { FORM_TYPE } from "@/components/forms/shared/types/form.type";
 
 const ConfigAccountPage = () => {
     const router = useRouter();

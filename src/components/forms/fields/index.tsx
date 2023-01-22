@@ -1,5 +1,5 @@
 import InputNumber from "./InputNumber"
-import { FieldType } from '../shared/enums/Field.enum';
+import { FieldTypeEnum } from '../shared/enums/Field.enum';
 
 const errorField = (msg) => {
     console.log(msg)
@@ -49,7 +49,7 @@ const fieldTextArea = (handleChange, field, values) => {
                 value={values[field.id] ? values[field.id] : ''}
                 onChange={handleChange}
                 className="form-control"
-                rows="3"
+                rows={3}
             ></textarea>
         </>
     );
@@ -99,13 +99,13 @@ const fieldHidden = (handleChange, field, values) => {
 const getField = (setFieldValue, handleChange, submitted, errors, values, field, idx) => {
     const getInput = () => {
         switch (field?.type) {
-            case FieldType.TEXT_AREA:
+            case FieldTypeEnum.TEXT_AREA:
                 return fieldTextArea(handleChange, field, values);
-            case FieldType.SWITCH:
+            case FieldTypeEnum.SWITCH:
                 return fieldSwitch(field, values, setFieldValue);
-            case FieldType.HIDDEN:
+            case FieldTypeEnum.HIDDEN:
                 return fieldHidden(handleChange, field, values);
-            case FieldType.NUMBER:
+            case FieldTypeEnum.NUMBER:
                 return fieldNumber(setFieldValue, field, values);
             default:
                 return fieldText(handleChange, field, values);

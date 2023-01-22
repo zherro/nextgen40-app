@@ -1,4 +1,5 @@
 import { inputHiddenHelper, inputPriceHelper } from '@/components/forms/helpers/Field.helper';
+import { TypeInputAddonEnum } from '@/components/forms/shared/enums/TypeInputAddon.enum';
 import { ROUTES } from '@/core/config/app.environment';
 import * as yup from 'yup';
 
@@ -41,6 +42,10 @@ const formActions = (router) => {
 const formFields = () => {
 
     const sizeOfNumerFields = 'col-sm-12 col-md-4';
+    const addonReal = {
+        type: TypeInputAddonEnum.INSIDE,
+        child: 'R$'
+    };
 
     return [
         inputHiddenHelper('id'),
@@ -49,6 +54,7 @@ const formFields = () => {
             fieldId: 'price',
             title: 'Valor Contrato: *',
             sizeClass: sizeOfNumerFields,
+            leftAddon: addonReal
         }),
         {
             id: 'qtdQuotes',

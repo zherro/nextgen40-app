@@ -1,55 +1,86 @@
-import { FieldType } from '../shared/enums/Field.enum';
+import { FieldTypeEnum } from '../shared/enums/Field.enum';
+import { TypeInputAddonEnum } from '../shared/enums/TypeInputAddon.enum';
+import InputSideAddon from '../shared/types/InputSideAddon';
 
 const inputHiddenHelper = (fieldId) => {
     return {
         id: fieldId,
-        type: FieldType.HIDDEN,
+        type: FieldTypeEnum.HIDDEN,
     }
 }
 
-const inputAddonInside = (children: any) => {
+const inputAddonInside = (child: any) => {
 
-    if(children != undefined) {
+    if(child != undefined) {
         return {
+            type: TypeInputAddonEnum.INSIDE,
             pointerEvents: 'none',
             color: 'gray.300',
             fontSize: '1.2em',
-            children: children,
+            child: child,
         }
     }
 
     return undefined;
 }
 
+const inputAddon = (child: any) => {
+
+    if(child != undefined) {
+        return {
+            type: TypeInputAddonEnum.NORMAL,
+            color: '',
+            fontSize: '1.2em',
+            child: child,
+        }
+    }
+
+    return undefined;
+}
+
+const getInputAddon = (addonConfig: InputSideAddon) => {
+
+    if(addonConfig == undefined || addonConfig == null
+        || addonConfig.type == undefined || addonConfig.type == null
+        || addonConfig.child == undefined || addonConfig.child == null) {
+        return null;
+    }
+
+    switch (addonConfig.type) {
+        case TypeInputAddonEnum.NORMAL:
+            return inputAddon(addonConfig);
+        case TypeInputAddonEnum.INSIDE:
+            // return inputAddonInside(addonConfig);
+    
+        default:
+            return undefined;
+    }
+}
+
+
 const inputPriceHelper = ({
     fieldId,
     title,
     sizeClass,
     size = 'md',
-    variant = 'filled',
     leftAddon=null,
     rightAddon=null,
 }) => {
     return {
         id: fieldId,
         title: title,
-        type: FieldType.NUMBER,
+        type: FieldTypeEnum.NUMBER,
         sizeClass: sizeClass,
         maxW: '100%',
         step: 1,
-        defaultValue: 0,
-        min: 1,
-        max: 99999999999999,
-        precision: 2,
+        min: 1.00,
         size: size,
-        variant: variant,
-        leftAddonChildren: inputAddonInside(leftAddon),
-        rightAddonChildren: inputAddonInside(rightAddon),
+        leftAddonChildren: getInputAddon(leftAddon),
+        rightAddonChildren: getInputAddon(rightAddon),
     };
 }
 
 export {
     inputHiddenHelper,
-    inputAddonInside,
     inputPriceHelper
 }
