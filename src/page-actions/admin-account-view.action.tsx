@@ -1,8 +1,8 @@
 
 import { ROUTES } from '../core/config/app.environment';
-import { ACTION_CONDITIONS } from '@/components/forms/types/btn.types';
 import { DeleteIcon, EditIcon, QuestionOutlineIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import { deleteAccountById } from '@/actions/account.action';
+import { ACTION_CONDITIONS } from '@/components/forms/shared/types/btn.type';
 
 const dataMap = [
     { type: 'uuid', id: 'uuid', title: 'ID' },

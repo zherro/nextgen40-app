@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { ROUTES } from "@/core/config/app.environment";
 import FormBuilder from '../../../../components/forms/write-form/index';
 import { useDispatch, useSelector } from "react-redux";
-import { getAccountById, saveAccount, updateAccount } from '@/actions/account.action';
-import { formFields, formActions, validationSchema, initialValues } from '../../../../page-actions/admin-account-form.action';
+import { getContractModelById, saveContractModel, updateContractModel } from '@/actions/contractModel.action';
+import { formFields, formActions, validationSchema, initialValues } from '../../../../page-actions/admin-contractModel-form.action';
 
 const FormAccount = () => {
     const router = useRouter();
@@ -23,18 +23,18 @@ const FormAccount = () => {
     return (
         <>
             <CrudLayout
-                title={action == 'new' ? 'Nova Conta' : 'Editar Conta'}
+                title={action == 'new' ? 'Novo Modelo Contrato' : 'Editar Modelo Contrato'}
                 pieces={[
                     { name: 'Configurar' },
-                    { name: 'Contas', link: ROUTES.CONFIG_ACCOUNT },
-                    { name: 'Nova Conta' },
+                    { name: 'Modelo Contrato', link: ROUTES.CONFIG_ACCOUNT },
+                    { name: 'Novo Modelo Contrato' },
                 ]}
             >
                 <FormBuilder
                     type="FORM"
                     callbackSuccess={(data) => router.push(ROUTES.CONFIG_ACCOUNT_VIEW + data?.uuid)}
-                    dispatch={(values) => editable ? dispatch(updateAccount(action, values)) : dispatch(saveAccount(values))}
-                    dispatchRetrieveData={(id) => dispatch(getAccountById(id))}
+                    dispatch={(values) => editable ? dispatch(updateContractModel(action, values)) : dispatch(saveContractModel(values))}
+                    dispatchRetrieveData={(id) => dispatch(getContractModelById(id))}
                     loading={ editable ? loadingData : creatingData }
                     data={
                         editable && data && data !== undefined && data !== null

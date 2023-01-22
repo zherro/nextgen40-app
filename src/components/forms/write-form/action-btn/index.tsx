@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button, WrapItem } from '@chakra-ui/react';
-import { ACTION_CONDITIONS } from '@/components/forms/types/btn.types';
+import { ACTION_CONDITIONS } from '../../shared/types/btn.type';
 
 const getBtnAction = (
     handleBtnSubmit,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrap, Spacer, Alert, AlertIcon } from '@chakra-ui/react';
-import { getField } from './fields';
+import { getField } from '../fields';
 import { getBtnAction } from './action-btn';
 
 const GenericForm = ({
@@ -41,7 +41,7 @@ const GenericForm = ({
                     </Alert>
                 )
             }
-            <div className="col-12 bg-white pt-2">
+            <div className="row bg-white pt-2">
                 {
                     formConfig?.fields?.map((field, idx) => getField(setFieldValue, handleChange, submited, errors, values, field, idx))
                 }

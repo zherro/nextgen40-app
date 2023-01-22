@@ -1,6 +1,7 @@
 import { logoutRequest } from "src/context/reducer/loginSlice";
 import { STORAGE_KEYS } from '../config/api.environment';
-import { isValidJson } from './json.helper.js';
+import { isValidJson } from "./json.helper";
+
 
 const actionFetch = (fetch, dispatch, request, success, failure, requestContent, finishLoad) => {
     dispatch(requestContent());

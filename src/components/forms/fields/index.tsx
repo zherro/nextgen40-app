@@ -1,3 +1,6 @@
+import InputNumber from "./InputNumber"
+import { FieldType } from '../shared/enums/Field.enum';
+
 const errorField = (msg) => {
     console.log(msg)
     return <div className="text-danger small">{msg}</div>
@@ -12,9 +15,25 @@ const fieldText = (handleChange, field, values) => {
                 name={field.id}
                 value={values[field.id] ? values[field.id] : ''}
                 onChange={handleChange}
-                type={field?.type ? field?.type : 'text'}
+                type={'text'}
                 className="form-control"
                 placeholder={field?.placeholder}
+            />
+        </>
+    )
+}
+
+const fieldNumber = (setFieldValue, field, values) => {
+    return (
+        <>
+            <label className="form-label">{field?.title}</label>
+            <InputNumber
+                id={field.id}
+                name={field.id}
+                value={values[field.id] ? values[field.id] : 0}
+                setValue={setFieldValue}
+                className="form-control"
+                {...field}
             />
         </>
     )
@@ -80,12 +99,14 @@ const fieldHidden = (handleChange, field, values) => {
 const getField = (setFieldValue, handleChange, submitted, errors, values, field, idx) => {
     const getInput = () => {
         switch (field?.type) {
-            case 'textarea':
+            case FieldType.TEXT_AREA:
                 return fieldTextArea(handleChange, field, values);
-            case 'switch':
+            case FieldType.SWITCH:
                 return fieldSwitch(field, values, setFieldValue);
-            case 'hidden':
+            case FieldType.HIDDEN:
                 return fieldHidden(handleChange, field, values);
+            case FieldType.NUMBER:
+                return fieldNumber(setFieldValue, field, values);
             default:
                 return fieldText(handleChange, field, values);
         }
