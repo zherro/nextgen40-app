@@ -6,7 +6,7 @@ import { ROUTES } from "@/core/config/app.environment";
 import FormBuilder from '../../../../components/forms/write-form/index';
 import { useDispatch, useSelector } from "react-redux";
 import { getContractModelById, saveContractModel, updateContractModel } from '@/actions/contractModel.action';
-import { formFields, formActions, validationSchema, initialValues } from '../../../../page-actions/admin-contractModel-form.action';
+import { formFields, formActions, validationSchema, initialValues } from '../../../../page-actions/contractModel/form.action';
 
 const FormAccount = () => {
     const router = useRouter();

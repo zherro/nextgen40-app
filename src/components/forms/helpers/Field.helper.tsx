@@ -100,8 +100,29 @@ const inputPriceHelper = ({
     };
 }
 
+
+const switchInputHelper = (id, title, sizeClass, options) => {
+    return {
+        id: id,
+        title: title,
+        type: FieldTypeEnum.SWITCH,
+        sizeClass: sizeClass,
+        options: options
+    }
+}
+
+const switchOptionInputHelper = (title, value, type) => {
+    return {
+        title: title,
+        value: value,
+        type: type,
+    }
+}
+
 export {
     inputHiddenHelper,
     inputPriceHelper,
-    inputNumberHelper
+    inputNumberHelper,
+    switchInputHelper,
+    switchOptionInputHelper,
 }

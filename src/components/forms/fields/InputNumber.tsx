@@ -88,8 +88,6 @@ const InputNumber = ({
                 child: data?.child ? data?.child : '',
             };
 
-            console.log(data.child)
-
             if (side === 'LEFT') {
                 return (
                     <InputLeftAddon
@@ -163,9 +161,7 @@ const InputNumber = ({
     }
 
     const maskValue = async (v) => {
-
-        console.log(v)
-
+        
         let dataValue = processValue(v);
 
         if (milionSeparator !== 'none') {
