@@ -3,7 +3,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import React from "react";
 import FormTitle  from './formTitle';
 
-const CrudLayout = ({ title, actions, pieces, children }) => {
+const CrudLayout = ({ title, actions={}, pieces, children }) => {
 
     return (
         <>

@@ -1,6 +1,5 @@
 import { FieldTypeEnum } from '../shared/enums/Field.enum';
 import { TypeInputAddonEnum } from '../shared/enums/TypeInputAddon.enum';
-import InputSideAddon from '../shared/types/InputSideAddon';
 
 const inputHiddenHelper = (fieldId) => {
     return {
@@ -9,7 +8,7 @@ const inputHiddenHelper = (fieldId) => {
     }
 }
 
-const inputAddonInside = (addonConfig: any) => {
+const inputAddonInside = (addonConfig) => {
 
     if(addonConfig != undefined && addonConfig != null) {
         return {
@@ -22,7 +21,7 @@ const inputAddonInside = (addonConfig: any) => {
     return undefined;
 }
 
-const inputAddon = (addonConfig: any) => {
+const inputAddon = (addonConfig) => {
 
     if(addonConfig != undefined && addonConfig != null) {
         return {
@@ -34,7 +33,7 @@ const inputAddon = (addonConfig: any) => {
     return undefined;
 }
 
-const getInputAddon = (addonConfig: InputSideAddon) => {
+const getInputAddon = (addonConfig) => {
 
     if(addonConfig == undefined || addonConfig == null
         || addonConfig.type == undefined || addonConfig.type == null

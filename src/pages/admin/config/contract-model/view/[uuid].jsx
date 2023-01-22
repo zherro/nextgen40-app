@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getAccountById } from "@/actions/account.action";
+import { getContractModelById } from "@/actions/contractModel.action";
 import CrudLayout from "@/components/forms/crud-layout/crudLayout";
 import FormBuilder from "@/components/forms/write-form";
 import DefaultLayout from "@/components/layouts/default-layout";
 import { ROUTES } from "@/core/config/app.environment";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { dataMap, viewActions } from "../../../../../page-actions/admin-account-view.action";
+import { dataMap, viewActions } from "../../../../../page-actions/contractModel/view.action";
 
 const AccountViewPage = () => {
 
@@ -18,7 +18,7 @@ const AccountViewPage = () => {
 
     useEffect(() => {
         if(uuid != undefined) {
-            dispatch(getAccountById(uuid));
+            dispatch(getContractModelById(uuid));
         }
     }, [uuid]);
 

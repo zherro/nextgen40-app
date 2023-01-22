@@ -10,7 +10,7 @@ import ResponsiveTable from '../responsiveTable';
 const FormBuilder = ({
     type,
     dataMap,
-    actions,
+    actions={},
     formConfig,
     tableConfig,
 
@@ -108,13 +108,11 @@ const FormBuilder = ({
     }
 
     const fetchDataToView = () => {
-        console.log('teste 1111')
         setSubmited(true);
         dispatch();
     }
 
     const fetchData = (values) => {
-        console.log('teste 222222')
         if (submited) {
             dispatch(values);
         }

@@ -1,9 +1,9 @@
 
 import { ROUTES } from '../core/config/app.environment';
-import { ACTION_CONDITIONS, CRUD_ACTION } from '@/components/forms/types/btn.types';
 import { FORM_TYPE } from '@/components/forms/types/form.types';
 import { DeleteIcon, EditIcon, QuestionOutlineIcon, ViewIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import { deleteAccountById } from '@/actions/account.action';
+import { CRUD_ACTION } from '@/components/forms/shared/types/btn.type';
 
 const tableAction = (t, router) => {
     return [

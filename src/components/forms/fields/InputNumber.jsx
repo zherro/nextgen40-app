@@ -1,5 +1,4 @@
-import React, { ReactElement, useEffect } from "react";
-import InputSideAddon from '../shared/types/InputSideAddon';
+import React, { useEffect } from "react";
 import {
     HStack,
     Button,
@@ -77,10 +76,10 @@ const InputNumber = ({
         }
     }, [value])
 
-    const getInputAddon = (data: any, side: string = 'LEFT'): ReactElement => {
+    const getInputAddon = (data, side = 'LEFT') => {
 
         if (data && data != null && data != undefined) {
-            let input: InputSideAddon = {
+            let input = {
                 type: data?.type,
                 pointerEvents: data?.pointerEvents ? data?.pointerEvents : '',
                 color: data?.color ? data?.color : 'gray.500',
@@ -148,14 +147,14 @@ const InputNumber = ({
 
     const handleChange = (event) => maskValue(event.target.value);
     const inc = () => {
-        let stepInterval: number = step;
-        let val: number = getValue().value;
+        let stepInterval = step;
+        let val = getValue().value;
         let num = val + stepInterval;
         maskValue(num.toFixed(precision));
     }
     const dec = () => {
-        let stepInterval: number = step;
-        let val: number = getValue().value;
+        let stepInterval = step;
+        let val = getValue().value;
         let num = val - stepInterval;
         maskValue(num.toFixed(precision));
     }

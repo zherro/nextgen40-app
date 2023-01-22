@@ -20,6 +20,20 @@ const FormAccount = () => {
     const dispatch = useDispatch();
     const { creatingData, dataCreated, dataCreateError, loadingData, data, dataError } = useSelector(state => state.crudReducer);
 
+
+    const sanitizeValues = (value) => {
+        let numbers = ('' + value.price).replace(/\D/g, '');
+        let result = (''+value.price).indexOf('-') >= 0 ?  '-'+ numbers : numbers;
+        value.price = result;
+
+        numbers = ('' + value.quotePrice).replace(/\D/g, '');
+        result = (''+value.quotePrice).indexOf('-') >= 0 ?  '-'+ numbers : numbers;
+        value.quotePrice = result;
+
+
+        return value;
+    }
+
     return (
         <>
             <CrudLayout
@@ -33,7 +47,7 @@ const FormAccount = () => {
                 <FormBuilder
                     type="FORM"
                     callbackSuccess={(data) => router.push(ROUTES.CONFIG_ACCOUNT_VIEW + data?.uuid)}
-                    dispatch={(values) => editable ? dispatch(updateContractModel(action, values)) : dispatch(saveContractModel(values))}
+                    dispatch={(values) => editable ? dispatch(updateContractModel(action, sanitizeValues(values))) : dispatch(saveContractModel(sanitizeValues(values)))}
                     dispatchRetrieveData={(id) => dispatch(getContractModelById(id))}
                     loading={ editable ? loadingData : creatingData }
                     data={
