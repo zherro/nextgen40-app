@@ -30,6 +30,10 @@ const FormAccount = () => {
         result = (''+value.quotePrice).indexOf('-') >= 0 ?  '-'+ numbers : numbers;
         value.quotePrice = result;
 
+        numbers = ('' + value.qtdQuotes).replace(/\D/g, '');
+        result = (''+value.qtdQuotes).indexOf('-') >= 0 ?  '-'+ numbers : numbers;
+        value.qtdQuotes = result;
+
 
         return value;
     }
@@ -40,13 +44,13 @@ const FormAccount = () => {
                 title={action == 'new' ? 'Novo Modelo Contrato' : 'Editar Modelo Contrato'}
                 pieces={[
                     { name: 'Configurar' },
-                    { name: 'Modelo Contrato', link: ROUTES.CONFIG_ACCOUNT },
+                    { name: 'Modelo Contrato', link: ROUTES.CONFIG_CONTRACT_MODEL },
                     { name: 'Novo Modelo Contrato' },
                 ]}
             >
                 <FormBuilder
                     type="FORM"
-                    callbackSuccess={(data) => router.push(ROUTES.CONFIG_ACCOUNT_VIEW + data?.uuid)}
+                    callbackSuccess={(data) => router.push(ROUTES.CONFIG_CONTRACT_MODEL_VIEW + data?.uuid)}
                     dispatch={(values) => editable ? dispatch(updateContractModel(action, sanitizeValues(values))) : dispatch(saveContractModel(sanitizeValues(values)))}
                     dispatchRetrieveData={(id) => dispatch(getContractModelById(id))}
                     loading={ editable ? loadingData : creatingData }

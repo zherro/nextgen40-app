@@ -28,7 +28,7 @@ const AccountViewPage = () => {
                 title={'Visualizar Conta'}
                 pieces={[
                     { name: 'Configurar' },
-                    { name: 'Contas', link: ROUTES.CONFIG_ACCOUNT },
+                    { name: 'Contas', link: ROUTES.CONFIG_CONTRACT_MODEL},
                     { name: 'Vizualizar Conta' },
                 ]}
             >

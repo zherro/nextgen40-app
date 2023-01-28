@@ -1,7 +1,7 @@
 
-import { ROUTES } from '../core/config/app.environment';
+import { ROUTES } from '../../core/config/app.environment';
 import { DeleteIcon, EditIcon, QuestionOutlineIcon, WarningTwoIcon } from '@chakra-ui/icons';
-import { deleteAccountById } from '@/actions/account.action';
+import { deleteContractModelById } from '@/actions/contractModel.action';
 import { ACTION_CONDITIONS } from '@/components/forms/shared/types/btn.type';
 
 const dataMap = [
@@ -40,7 +40,7 @@ const viewActions = (router, dispatch) => {
                         title: 'Confirmar',
                         colorScheme: 'red',
                         actionFieldParam: 'uuid',
-                        action: (uuid) => dispatch(deleteAccountById(uuid))
+                        action: (uuid) => dispatch(deleteContractModelById(uuid))
                     },
                     {
                         type: 'close',
@@ -49,7 +49,7 @@ const viewActions = (router, dispatch) => {
                 ]
             },
             modealType: 'request',
-            action: () => { router.push(ROUTES.CONFIG_ACCOUNT) },
+            action: () => { router.push(ROUTES.CONFIG_CONTRACT_MODEL) },
             conditions: [
                 {
                     type: ACTION_CONDITIONS.TYPE.NOT_EQUALS_FIELD,
@@ -62,7 +62,7 @@ const viewActions = (router, dispatch) => {
             type: 'btn',
             title: 'Ver todos',
             colorScheme: 'blue',
-            action: () => { router.push(ROUTES.CONFIG_ACCOUNT) },
+            action: () => { router.push(ROUTES.CONFIG_CONTRACT_MODEL) },
         },
         {
             type: 'btn',
@@ -70,7 +70,7 @@ const viewActions = (router, dispatch) => {
             title: 'Editar',
             colorScheme: 'blue',
             actionFieldParam: 'uuid',
-            action: (uuid) => { router.push(`${ROUTES.CONFIG_ACCOUNT_EDIT}${uuid}`) },
+            action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL_EDIT}${uuid}`) },
             conditions: [
                 {
                     type: ACTION_CONDITIONS.TYPE.NOT_EQUALS_FIELD,
