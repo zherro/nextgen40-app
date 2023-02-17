@@ -1,5 +1,5 @@
 
-import { ROUTES } from '../core/config/app.environment';
+import { ROUTES } from '../../core/config/app.environment';
 import { DeleteIcon, EditIcon, QuestionOutlineIcon, ViewIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import { deleteContractModelById } from '@/actions/contractModel.action';
 import { ACTION_CONDITIONS, CRUD_ACTION } from '@/components/forms/shared/types/btn.type';
@@ -10,7 +10,7 @@ const tableAction = (t, router) => {
         {
             type: CRUD_ACTION.ADD,
             title: t.add,
-            onClick: () => { router.push(ROUTES.CONFIG_CONTRACT_MODEL_NEW) },
+            onClick: () => { router.push(ROUTES.CONFIG_CONTRACT_MODEL.NEW) },
         }
     ];
 }
@@ -75,14 +75,14 @@ const tableRowsConfig = (router, dispatch) => {
                     colorScheme: 'blue',
                     icon: <ViewIcon boxSize={4} color='blue' />,
                     actionFieldParam: 'uuid',
-                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL_VIEW}${uuid}`) }
+                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL.VIEW}${uuid}`) }
                 },
                 {
                     type: 'btn-ghost',
                     colorScheme: 'blue',
                     icon: <EditIcon boxSize={4} color='blue' />,
                     actionFieldParam: 'uuid',
-                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL_EDIT}${uuid}`) },
+                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL.EDIT}${uuid}`) },
                     conditions: [
                         {
                             type: ACTION_CONDITIONS.TYPE.NOT_EQUALS_FIELD,
@@ -96,15 +96,15 @@ const tableRowsConfig = (router, dispatch) => {
                     colorScheme: 'red',
                     icon: <DeleteIcon boxSize={4} color='red' />,
                     actionFieldParam: 'uuid',
-                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL_DELETE}${uuid}`) },
+                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL.EDIT}${uuid}`) },
                     withConfirm: true,
                     modal: {
                         titleIcon: <QuestionOutlineIcon boxSize={6} mr={2} />,
                         title: 'Confirmacao',
                         contentIcon: <WarningTwoIcon boxSize={8} color="red" />,
                         content: 'Tem certeza que deseja remover esta Conta? Esta e uma acao irreversivel!',
-                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL_DELETE}${uuid}`) },
-                    callbackOnClose: () => {router.push(ROUTES.CONFIG_CONTRACT_MODEL)},
+                    action: (uuid) => { router.push(`${ROUTES.CONFIG_CONTRACT_MODEL.EDIT}${uuid}`) },
+                    callbackOnClose: () => {router.push(ROUTES.CONFIG_CONTRACT_MODEL.ROOT)},
                         actions: [
                             {
                                 type: 'btn',

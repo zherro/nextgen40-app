@@ -44,13 +44,13 @@ const FormAccount = () => {
                 title={action == 'new' ? 'Novo Modelo Contrato' : 'Editar Modelo Contrato'}
                 pieces={[
                     { name: 'Configurar' },
-                    { name: 'Modelo Contrato', link: ROUTES.CONFIG_CONTRACT_MODEL },
+                    { name: 'Modelo Contrato', link: ROUTES.CONFIG_CONTRACT_MODEL.ROOT },
                     { name: 'Novo Modelo Contrato' },
                 ]}
             >
                 <FormBuilder
                     type="FORM"
-                    callbackSuccess={(data) => router.push(ROUTES.CONFIG_CONTRACT_MODEL_VIEW + data?.uuid)}
+                    callbackSuccess={(data) => router.push(ROUTES.CONFIG_CONTRACT_MODEL.VIEW + data?.uuid)}
                     dispatch={(values) => editable ? dispatch(updateContractModel(action, sanitizeValues(values))) : dispatch(saveContractModel(sanitizeValues(values)))}
                     dispatchRetrieveData={(id) => dispatch(getContractModelById(id))}
                     loading={ editable ? loadingData : creatingData }

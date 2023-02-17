@@ -38,11 +38,11 @@ const getUserRoutes = () => {
 }
 
 const userIsAdmin = () => {
-    return getUser()?.roles.indexOf('ROLE_ADMIN') >= 0;
+    return getUser()?.roles?.indexOf('ROLE_ADMIN') >= 0;
 }
 
 const userHasRole = (role) => {
-    return getUser()?.roles.indexOf(role) >= 0;
+    return getUser()?.roles?.indexOf(role) >= 0;
 }
 
 const authHeader = () => {

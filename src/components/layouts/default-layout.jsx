@@ -112,7 +112,7 @@ const DefaultLayout = (page) => {
                             },
                             {
                                 show: userHasRole('CONFIG_ROTA'),
-                                action: () => router.push(ROUTES.CONFIG_CONTRACT_MODEL),
+                                action: () => router.push(ROUTES.CONFIG_CONTRACT_MODEL.ROOT),
                                 icon: <SettingsIcon />,
                                 name: "Configurar Modelos de Contrato"
                             },

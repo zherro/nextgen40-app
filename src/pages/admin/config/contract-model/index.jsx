@@ -4,7 +4,7 @@ import DefaultLayout from "@/components/layouts/default-layout";
 import { useRouter } from 'next/router';
 import { getContractModelAll } from "@/actions/contractModel.action";
 import { useDispatch, useSelector } from "react-redux";
-import { tableFilterConfig, tableHead, tableRowsConfig, tableAction } from "../../../../page-actions/admin-contractModel-table.action";
+import { tableFilterConfig, tableHead, tableRowsConfig, tableAction } from "../../../../page-actions/contractModel/table.action";
 import FormBuilder from '@/components/forms/write-form';
 import useTranslations from "@/hooks/useTranslations";
 import { FORM_TYPE } from "@/components/forms/shared/types/form.type";

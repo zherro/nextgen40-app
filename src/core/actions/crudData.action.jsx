@@ -7,8 +7,6 @@ import {
 } from "../../context/reducer/crudSlice";
 import { actionFetch, serializeToQuery } from "../helpers/action.helper";
 import { fetchPost, fetchGet, fetchUpdate, fetchDelete } from "../helpers/service.helper";
-import { API_PATHS } from '../config/api.environment';
-
 
 const save = (url, values) => {
   console.log('enviando request')
