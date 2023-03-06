@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import LangSwitcher from '@/components/lang-switcher/LangSwitcher';
-import { useDisclosure, useToast } from "@chakra-ui/react";
+import { Icon, useDisclosure, useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from 'react-redux';
 import useTranslation from '@/hooks/useTranslations';
 import { logoutAuth } from '@/actions/login.action';
@@ -11,6 +11,7 @@ import ContentLoader from "./components/content-loader";
 import { ROUTES } from '@/core/config/app.environment';
 import { userHasRole } from "@/helpers/service.helper";
 import { STORAGE_KEYS } from "@/core/config/api.environment";
+import { MdFace } from 'react-icons/md';
 
 const DefaultLayout = (page) => {
     const router = useRouter();
@@ -115,6 +116,19 @@ const DefaultLayout = (page) => {
                                 action: () => router.push(ROUTES.CONFIG_CONTRACT_MODEL.ROOT),
                                 icon: <SettingsIcon />,
                                 name: "Configurar Modelos de Contrato"
+                            },
+                        ]
+                    },
+                    {
+                        groupId: 'cadastro',
+                        groupName: 'Cadastro',
+                        show: userHasRole('CONFIG'),
+                        itens: [
+                            {
+                                show: userHasRole('CONFIG_ROTA'),
+                                action: () => router.push(ROUTES.CLIENT.ROOT),
+                                icon: <Icon as={MdFace}  w={4} h={4} />,
+                                name: "Cadastro Clientes"
                             },
                         ]
                     },

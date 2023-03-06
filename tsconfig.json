@@ -68,6 +68,7 @@
     "**/*.js",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.jsx"
-, "next.config.js"  ]
+    "**/*.jsx",
+    "next.config.js"
+  ]
 }

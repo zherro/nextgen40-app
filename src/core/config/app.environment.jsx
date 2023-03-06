@@ -30,4 +30,12 @@ export const ROUTES = {
     CONFIG_USER_EDIT: "/admin/config/users/",
     CONFIG_USER_VIEW: "/admin/config/users/view/",
     CONFIG_USER_ROUTES: "/admin/config/users/user-rotas/",
+
+
+    CLIENT: {
+        ROOT: "/clients",
+        NEW: "/clients/new",
+        EDIT: "/clients/",
+        VIEW: "/clients/view/",
+    },
 }

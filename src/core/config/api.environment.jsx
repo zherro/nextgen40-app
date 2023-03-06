@@ -33,6 +33,10 @@ export const API_PATHS = {
     CRUD_CONTRACT_MODEL: "/api/contract-model",
     CRUD_CONTRACT_MODEL_WHIT_PARAM: "/api/contract-model/",
   },
+  CLIENT: {
+    CRUD_CLIENT: "/api/clients",
+    CRUD_CLIENT_WHIT_PARAM: "/api/clients/",
+  },
   USERS: {
     GET_MY_USERS: "/api/user/users",
     CRUD_USERS: "/api/user",
