@@ -1,0 +1,79 @@
+[
+    {
+        "category": "field",
+        "name": "Field value",
+        "description": "",
+        "vars": [
+            {
+                "var": "value",
+                "for": "default",
+                "values": [
+                    "TASK_NAME"
+                ]
+            }
+        ]
+    },
+    {
+        "category": "heading",
+        "name": "Heading Vars",
+        "description": "",
+        "vars": [
+            {
+                "var": "titleSize",
+                "for": "default",
+                "values": [
+                    "h6",
+                    "h5",
+                    "h4",
+                    "h3",
+                    "h2",
+                    "h1"
+                ]
+            }
+        ]
+    },
+    {
+        "category": "text",
+        "name": "text Vars",
+        "description": "",
+        "var": {
+            "var": "size",
+            "for": "default",
+            "values": [
+                "6xl",
+                "5xl",
+                "4xl",
+                "3xl",
+                "2xl",
+                "xl",
+                "lg",
+                "md",
+                "sm",
+                "xs"
+            ]
+        }
+    },
+    {
+        "category": "text",
+        "name": "text Vars",
+        "description": "",
+        "var": {
+            "var": "textStyle",
+            "for": "default",
+            "values": [
+                "b",
+                "i",
+                "u",
+                "abbr",
+                "cite",
+                "em",
+                "kbd",
+                "mark",
+                "s",
+                "samp",
+                "sub",
+                "sup"
+            ]
+        }
+    }
+]

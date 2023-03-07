@@ -1,17 +1,22 @@
+import React from "react";
+import SoftEngine from "./engine";
+
 /**
+ * Main container of Flow Engine. In this flow all components are rendered.
  * 
- * @returns asdajdslaskdadasdasd
- */
-const index = () => {
-    return (
-        <div>
-            Enter
-        </div>
-    );
-}
-/**
+ * @param { config } - task configurations
  * 
- * @returns asdajdslaskdadasdasd
+ * @returns SoftEngineContainer component container
  */
 
-export default index;
+const SoftEngineContainer = ({
+    taskConfig
+}) => {
+    return <>
+        <SoftEngine
+            taskConfig={taskConfig}
+        />
+    </>
+}
+
+export default SoftEngineContainer;

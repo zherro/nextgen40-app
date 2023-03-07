@@ -1,6 +1,7 @@
 import React from "react";
 import DefaultLayout from "@/components/layouts/default-layout";
 import { ROUTINE, TASK } from "./setup";
+import SoftEngineContainer from "src/soft-engine";
 
 const AdminRotaPage = ({
     errorConfig, config
@@ -8,7 +9,9 @@ const AdminRotaPage = ({
 
     return (
         <>
-            
+            <SoftEngineContainer
+                taskConfig={config}
+            />
         </>
     )
 }
@@ -23,7 +26,7 @@ export async function getServerSideProps({ req, res }) {
 
     try {
         const response = await fetch(
-            `${process.env.SOFT_FLOW_API}/config/${ROUTINE}/${TASK}`,
+            `${process.env.SOFT_FLOW_API}/config/task/${ROUTINE}/${TASK}`,
             {
                 method: 'GET',
                 headers: {
@@ -33,9 +36,9 @@ export async function getServerSideProps({ req, res }) {
             }
         );
 
-        if(response.ok) {
+        if (response.ok) {
             data = await response.json();
-    
+
             return {
                 props: {
                     errorConfig: error,
@@ -56,7 +59,7 @@ export async function getServerSideProps({ req, res }) {
         error = {
             error: 'There was an error'
         };
-    }    
+    }
 }
 
 AdminRotaPage.getLayout = DefaultLayout;

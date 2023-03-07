@@ -3,10 +3,10 @@ import { nonEmpty, nonNull } from "./validation.service";
 const findVarValueOf = (key, variables: any[]) => {
 
     if(nonEmpty(variables)) {
-        let filter = variables.find( v => v.key == key);
+        let filter = variables.find( v => v.name == key);
 
         if(nonNull(filter)) {
-            return filter?.value;
+            return { val: filter?.value, type: filter?.type };
         }
     }   
 

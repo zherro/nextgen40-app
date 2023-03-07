@@ -1,12 +1,6 @@
 [
   {
-    "description": "",
-    "displayName": "index",
-    "methods": [],
-    "filename": "/soft-engine/components/index.js"
-  },
-  {
-    "description": "operation \n\n bla bla bla \n@param {*} param0 \n@returns",
+    "description": "Basic title\n\n\n@vars styleClass, titleSize, textStyle\n@typw TITLE\n\n@param {string} title - text title\n@param {*} Operation\n\n@returns SoftTitle component",
     "displayName": "SoftTitle",
     "methods": [],
     "filename": "/soft-engine/components/title/index.js"

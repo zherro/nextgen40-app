@@ -1,39 +1,43 @@
 import React from "react";
 import clsx from "classnames";
-import { actionVarTitleStyle } from "../../action/variable.action";
-import { Stack, Text } from "@chakra-ui/react";
+import {
+    actionVarStyleClass,
+    actionVarTextStyle,
+    actionVarTitleSize
+} from "../../action/variable.action";
+import { Heading, Stack } from "@chakra-ui/react";
 
 /**
- *  operation 
+ *  Basic title
  * 
- *  bla bla bla 
- * @param {*} param0 
- * @returns 
+ * 
+ * @vars styleClass, titleSize, textStyle
+ * @typw TITLE
+ * 
+ * @param {string} title - text title
+ * @param {*} Operation
+ * 
+ * @returns SoftTitle component
  */
 const SoftTitle = ({
-    operation
+    vars,
+    value
 }) => {
 
-    const titleStyle = () => {
+    const classStyles = () => {
         return clsx({
-            [styles[actionVarTitleSize(operation?.variables)]]: true,
-            [styles[actionVarTitleStyle(operation?.variables)]]: true
+            [styles[actionVarStyleClass(vars)]]: true
         })
     }
 
     return (
         <>
             <Stack spacing={3}>
-                <Text fontSize='6xl'>(6xl) In love with React & Next</Text>
-                <Text fontSize='5xl'>(5xl) In love with React & Next</Text>
-                <Text fontSize='4xl'>(4xl) In love with React & Next</Text>
-                <Text fontSize='3xl'>(3xl) In love with React & Next</Text>
-                <Text fontSize='2xl'>(2xl) In love with React & Next</Text>
-                <Text fontSize='xl'>(xl) In love with React & Next</Text>
-                <Text fontSize='lg'>(lg) In love with React & Next</Text>
-                <Text fontSize='md'>(md) In love with React & Next</Text>
-                <Text fontSize='sm'>(sm) In love with React & Next</Text>
-                <Text fontSize='xs'>(xs) In love with React & Next</Text>
+                <Heading
+                    as={actionVarTitleSize(vars)}
+                >
+                    { value }
+                </Heading>
             </Stack>
         </>
     );
